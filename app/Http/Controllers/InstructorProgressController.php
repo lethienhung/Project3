@@ -21,9 +21,11 @@ class InstructorProgressController extends Controller
     public function index(InstructorCompany $instructorId)
     {
         $id = $instructorId->retrieveInstructorId();
-        $instructor_id = InstructorCompany::where('instructor_id', '=', $id)->get();
-        $studentIds = DB::table('assignment')->paginate(2);
-        return view('instructor.instructorprogress', compact('instructor_id', 'studentIds'));
+        $idCompany = DB::table('instructor_company')->where('instructor_id',$id)->pluck('company_id');
+        $studentInCompany = DB::table('assignment')->join('students','assignment.student_id','=','students.student_id')->where('company_id',$idCompany)
+                                                    ->where('company_confirm','=','Approved')->get();
+    
+        return view('instructor.instructor_intern_management',compact('idCompany','studentInCompany'));
 
     }
 
