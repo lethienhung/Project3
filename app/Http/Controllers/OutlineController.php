@@ -59,7 +59,7 @@ class OutlineController extends Controller
         $company = DB::table('company')->where('company_id', $companyId)->first();
         //Topic info
         $repId = DB::table('representation_company')->where('company_id', '=', $companyId)->pluck('representation_id');
-        $topicId = DB::table('topic')->where('representation_id', '=', $repId)->pluck('topic_id');
+        $topicId = DB::table('assignment')->where('representation_id', '=', $repId)->where('student_id',$student_id)->pluck('topic_id');
         $topic = DB::table('topic')->where('topic_id', '=', $topicId)->first();
         //Period Info
         $periodId = DB::table('periods_students')->where('student_id', '=', $student_id)->pluck('period_id');
@@ -111,13 +111,19 @@ class OutlineController extends Controller
 
     public function workDone(Request $request)
     {
-        DB::table('outline_work')->where('topic_id',$topicId)->where('student_id',$request->student_id)->update([
-            'status'=>'Done'
-        ]);
+        DB::table('outline_work')->where('topic_id',$request->topicId)
+                                 ->where('student_id',$request->student_id)
+                                 ->where('work',$request->work)
+                                 ->update([
+                                    'status'=>'Done'
+                                ]);
     }
     public function workFail(Request $request)
     {
-        DB::table('outline_work')->where('topic_id',$topicId)->where('student_id',$request->student_id)->update([
+        DB::table('outline_work')->where('topic_id',$request->topicId)
+        ->where('student_id',$request->student_id)
+        ->where('work',$request->work)
+        ->update([
             'status'=>'Failed'
         ]);
     }

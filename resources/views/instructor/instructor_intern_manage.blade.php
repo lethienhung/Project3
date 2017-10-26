@@ -1,4 +1,9 @@
-@extends('layouts.intern_process') @section('title','Intern Process Manage') @section('content')
+@extends('layouts.intern_process')
+@section('title','Intern Process Manage') 
+@section('extra-css')
+<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+@endsection
+@section('content')
 <!-- END PAGE BREADCRUMB -->
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="tabbable-line tabbable-full-width">
@@ -122,10 +127,12 @@
                                                             </div>
                                                             @if($work->status == 'Working')
                                                             <div class="task-status">
-                                                                <a class="done" href="javascript:;" id="{{$work->id}}-done" onclick="done('{{$work->id}}')">
+                                                                <a class="done" href="javascript:;" id="{{$work->id}}-done" 
+                                                                onclick="done('{{$work->id}}','{{$topic->topic_id}}','{{$student_id}}','{{$work->work}}')">
                                                                     <i class="fa fa-check"></i>
                                                                 </a>
-                                                                <a class="pending" href="javascript:;" id="{{$work->id}}-fail" onclick="fail('{{$work->id}}')">
+                                                                <a class="pending" href="javascript:;" id="{{$work->id}}-fail" 
+                                                                onclick="fail('{{$work->id}}','{{$topic->topic_id}}','{{$student_id}}','{{$work->work}}')">
                                                                     <i class="fa fa-close"></i>
                                                                 </a>
                                                             </div>
@@ -238,7 +245,7 @@
 @endsection @section('extra-js')
 
 <script>
-    function done(id) {
+    function done(id,topicId,studentId,work) {
         var removeFail = document.getElementById(id + '-fail')
         $.ajaxSetup({
             headers: {
@@ -248,7 +255,11 @@
         $.ajax({
             url: "/instructor/outline/work/done",
             type: 'post',
-
+            data:{
+                'topicId': topicId,
+                'student_id' : studentId,
+                'work' : work
+            },
             success: function () {
                 $(removeFail).remove();
             }
@@ -259,7 +270,7 @@
 
     }
 
-    function fail(id) {
+    function fail(id,topicId,studentId,work) {
         var removeDone = document.getElementById(id + '-done')
         $.ajaxSetup({
             headers: {
@@ -269,7 +280,11 @@
         $.ajax({
             url: "/instructor/outline/work/fail",
             type: 'post',
-
+            data:{
+                'topicId': topicId,
+                'student_id' : studentId,
+                'work' : work
+            },
             success: function () {
                 $(removeDone).remove();
 

@@ -179,6 +179,8 @@ Route::group(['middleware' => ['auth', 'lecturer']], function () {
 
 //Routes only accessable by instructor
 Route::group(['middleware' => ['auth','instructor']], function () {
+    Route::get('/instructor/intern', 'InstructorProgressController@index');
+    //Instructor outline management - Done
     Route::get('/instructor/outline/{topicId}','OutlineController@createOutline');
     Route::post('/instructor/outline/store','OutlineController@store');
     Route::post('/instructor/outline/work/done','OutlineController@workDone');
@@ -190,7 +192,7 @@ Route::group(['middleware' => ['auth','instructor']], function () {
     Route::post('instructor/profile', 'InstructorController@store');//thieu view
     //Instructor Timekeeping
     //Route::get('instructor/timekeeping', 'TimeKeepingController@index');
-    Route::get('instructor/intern', 'InstructorProgressController@create');
+    Route::get('instructor/time-keeping/{student_id}', 'InstructorProgressController@create');
     Route::post('instructor/internship', 'InstructorProgressController@store');
     
 

@@ -1,5 +1,9 @@
 @extends('layouts.intern_process') 
 @section('title','Student Intern Process')
+
+@section('extra-css')
+<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+@endsection
 @section('content')
 <!-- END PAGE BREADCRUMB -->
 <!-- BEGIN PAGE BASE CONTENT -->
