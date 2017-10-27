@@ -4,8 +4,8 @@
 
 @section('pageplugins1')
 	@parent
-	<link href="../assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
-    <link href="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -66,6 +66,7 @@
                                                 <th> Thời gian kết thúc</th>
                                                 <th> Số sinh viên</th>
                                                 <th> Tình trạng</th>
+                                                <th> Hành động </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -75,8 +76,8 @@
                                                 <td> {{$period->start_date}}</td>
                                                 <td> {{$period->end_date}}</td>
                                                 <td> ...</td>
-                                                <td> <span class="label label-sm label-info">Pending</span>
-                                                </td>
+                                                <td> <span class="label label-sm label-info">Pending</span></td>
+                                                <td> <a class="btn btn-sm btn-success" href="period/{{$period->id}}">Xem</a></td>
                                             </tr>
                                             @endforeach
                                             <tr>
@@ -174,12 +175,12 @@
 
 @section('pageplugins2')
 	@parent
-	<script src="../assets/global/scripts/datatable.js" type="text/javascript"></script>
-    <script src="../assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
-    <script src="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+	<script src="/assets/global/scripts/datatable.js" type="text/javascript"></script>
+    <script src="/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+    <script src="/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
 @endsection
 
 @section('pagescript')
 	@parent
-	<script src="../assets/pages/scripts/table-datatables-fixedheader.min.js" type="text/javascript"></script>
+	<script src="/assets/pages/scripts/table-datatables-fixedheader.min.js" type="text/javascript"></script>
 @endsection

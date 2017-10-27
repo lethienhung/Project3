@@ -54,7 +54,7 @@ class PeriodController extends Controller
             ->select('students.*')
             ->get();
 
-        return view('period.managementteacheraddstd')
+        return view('period.period')
             ->with('studentsInPeriod', $studentsInPeriod)
             ->with('period_id', $period_id)
             ->with('students', $students);
