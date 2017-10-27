@@ -14,12 +14,12 @@ class PeriodController extends Controller
     {
         $periods = DB::table('periods')->get();
 
-        return view('period.periodmanage')->with('periods', $periods);
+        return view('period.periods')->with('periods', $periods);
     }
 
     public function create()
     {
-        return view('period.periodmanage');
+        return view('period.create');
     }
 
     public function store(Request $request)
@@ -54,7 +54,7 @@ class PeriodController extends Controller
             ->select('students.*')
             ->get();
 
-        return view('period.managementteacheraddstd')
+        return view('period.period')
             ->with('studentsInPeriod', $studentsInPeriod)
             ->with('period_id', $period_id)
             ->with('students', $students);

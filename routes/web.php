@@ -50,6 +50,13 @@ Route::group(['middleware' => ['auth']], function () {
 //Routes only accessable by admin
 Route::group(['middleware' => ['auth', 'admin']], function () {
 
+    Route::get('/admin/newdash', function () {
+        return view('admin.newdashboard');
+    });
+
+    Route::get('/users', function () {
+        return view('admin.newusers');
+    });
 
     Route::get('/admin/dashboard', 'AdminController@indexDashboard');
     Route::get('/admin/post', 'LogsController@index');
@@ -141,12 +148,13 @@ Route::group(['middleware' => ['auth', 'manager']], function () {
     Route::get('/assign', 'AssignmentController@store');
 
     //Periods
-    Route::get('/manager/periods', 'PeriodController@index');
-    Route::get('/manager/periods/create', 'PeriodController@create');
-    Route::post('/manager/periods/create', 'PeriodController@store');
+    Route::get('periods', 'PeriodController@index');
+    Route::get('periods/create', 'PeriodController@create');
+    Route::post('periods/create', 'PeriodController@store');
     Route::get('manager/period/{period_id}', 'PeriodController@getPeriod');
     Route::get('manager/period/{period_id}/add/{student_id}', 'PeriodController@addStudentToPeriod');
     Route::get('manager/period/{period_id}/remove/{student_id}', 'PeriodController@removeStudentFromPeriod');
+    Route::get('period/{period_id}', 'PeriodController@getPeriod');
 
     //Profile
     Route::get('/manager/profile', 'InternManagementTeacherController@index');
