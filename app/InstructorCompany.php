@@ -19,8 +19,7 @@ class InstructorCompany extends Model
         'last_name',
         'email',
         'phone_number',
-        'password',
-        'position',
+        'about_me',
         'company_id'
     ];
 

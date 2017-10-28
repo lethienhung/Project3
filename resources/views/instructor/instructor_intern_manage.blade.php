@@ -1,9 +1,5 @@
-@extends('layouts.intern_process')
-@section('title','Intern Process Manage') 
-@section('extra-css')
-<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
-@endsection
-@section('content')
+@extends('layouts.intern_process') @section('title','Intern Process Manage') @section('extra-css')
+<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css"> @endsection @section('content')
 <!-- END PAGE BREADCRUMB -->
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="tabbable-line tabbable-full-width">
@@ -127,12 +123,10 @@
                                                             </div>
                                                             @if($work->status == 'Working')
                                                             <div class="task-status">
-                                                                <a class="done" href="javascript:;" id="{{$work->id}}-done" 
-                                                                onclick="done('{{$work->id}}','{{$topic->topic_id}}','{{$student_id}}','{{$work->work}}')">
+                                                                <a class="done" href="javascript:;" id="{{$work->id}}-done" onclick="done('{{$work->id}}','{{$topic->topic_id}}','{{$student_id}}','{{$work->work}}')">
                                                                     <i class="fa fa-check"></i>
                                                                 </a>
-                                                                <a class="pending" href="javascript:;" id="{{$work->id}}-fail" 
-                                                                onclick="fail('{{$work->id}}','{{$topic->topic_id}}','{{$student_id}}','{{$work->work}}')">
+                                                                <a class="pending" href="javascript:;" id="{{$work->id}}-fail" onclick="fail('{{$work->id}}','{{$topic->topic_id}}','{{$student_id}}','{{$work->work}}')">
                                                                     <i class="fa fa-close"></i>
                                                                 </a>
                                                             </div>
@@ -209,43 +203,129 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="portlet-body">
-                            <table style="text-align: center;" class="table table-striped table-bordered table-hover table-header-fixed" id="sample_1">
-                                <thead>
-                                    <tr class="">
-                                        <th> Topic </th>
-                                        <th> Student Name</th>
-                                        <th> Student ID </th>
-                                        <th> Status </th>
-                                        <th> Process </th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td> {{$topic->title}} </td>
-                                        <td> {{$student->last_name}} {{$student->first_name}} </td>
-                                        <td> {{$student->student_id}} </td>
-                                        <td> Intern status </td>
-                                        <td> Outline link to download</td>
-
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="portlet-body" id="make-mark">
+                            <input class="btn btn-success" value="{{$student->student_id}}" id="sid" type="hidden">
+                            <input value="{{$student_mark->mark_instructor}}" type="hidden" id="old-mark">
+                            <marking></marking>
                         </div>
+                        <template id="marking-template">
+                            <div>
+                                <table style="text-align: center;" class="table table-striped table-bordered table-hover table-header-fixed" id="sample_1">
+                                    <thead>
+                                        <tr class="">
+                                            <th> Topic </th>
+                                            <th> Student Name</th>
+                                            <th> Student ID </th>
+                                            <th> Mark Instructor </th>
+                                            <th> Note Instructor </th>
+                                            <th> Mark Lecturer</th>
+                                            <th> Note Lecturer</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td> {{$topic->title}} </td>
+                                            <td> {{$student->last_name}} {{$student->first_name}} </td>
+                                            <td> {{$student->student_id}} </td>
+                                            <td>
+                                                <input class="btn btn-success" v-model="mark" readonly>
+                                            </td>
+                                            <td> {{$student_mark->instructor_note}}</td>
+                                            <td>
+                                                <input class="btn btn-success" value="{{$student_mark->mark_lecturer}}">
+                                            </td>
+                                            <td> {{$student_mark->lecturer_note}}</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                Chấm điểm:
+                                <input v-model="mark" class="form-control">
+                                <button type="submit" @click="makeMark()">Submit</button>
+                            </div>
+                        </template>
+
                     </div>
                     <!-- END EXAMPLE TABLE PORTLET-->
 
                 </div>
             </div>
+
+
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                    <div class="portlet box yellow">
+                        <div class="portlet-title">
+                            <div class="caption font-dark">
+                                <i class="icon-settings font-dark"></i>
+                                <span class="caption-subject bold uppercase">Nhận xét</span>
+                            </div>
+                            <div class="actions">
+                                <div class="btn-group btn-group-devided" data-toggle="buttons">
+                                    <label class="btn btn-transparent dark btn-outline btn-circle btn-sm active">
+                                        <input type="radio" name="options" class="toggle" id="option1">Actions</label>
+                                    <label class="btn btn-transparent dark btn-outline btn-circle btn-sm">
+                                        <input type="radio" name="options" class="toggle" id="option2">Settings</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet-body" id="evaluate">
+                            <textarea id="old-evaluate" value="{{$student_evaluate->content_instructor}}" hidden></textarea>
+                            <evaluate></evaluate>
+                        </div>
+                        <template id="evaluate-template">
+                            <div>
+                                <table style="text-align: center;" class="table table-striped table-bordered table-hover table-header-fixed" id="sample_1">
+                                    <thead>
+                                        <tr class="">
+                                            <th> Topic </th>
+                                            <th> Student Name</th>
+                                            <th> Student ID </th>
+                                            <th> Instructor Evaluate </th>
+                                            <th> Lecturer Evaluate</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td> {{$topic->title}} </td>
+                                            <td> {{$student->last_name}} {{$student->first_name}} </td>
+                                            <td> {{$student->student_id}} </td>
+                                            <td> {{$student_evaluate->content_instructor}} </td>
+                                            <td> {{$student_evaluate->content_lecturer}}</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <textarea class="form-control" v-model="evaluate" rows="5"></textarea>
+                                <button class="btn btn-success" @click="makeEvaluation()">Submit</button>
+                            </div>
+                        </template>
+
+                    </div>
+                    <!-- END EXAMPLE TABLE PORTLET-->
+
+                </div>
+            </div>
+
+
         </div>
     </div>
 </div>
 <!-- END CONTENT BODY -->
 @endsection @section('extra-js')
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.js"></script>
+<script src="https://unpkg.com/vue@2.4.2"></script>
+<script src="/js/evaluate.js"></script>
+<script src="/js/marking.js"></script>
+<!-- END FOOTER -->
 <script>
-    function done(id,topicId,studentId,work) {
+    function done(id, topicId, studentId, work) {
         var removeFail = document.getElementById(id + '-fail')
         $.ajaxSetup({
             headers: {
@@ -255,10 +335,10 @@
         $.ajax({
             url: "/instructor/outline/work/done",
             type: 'post',
-            data:{
+            data: {
                 'topicId': topicId,
-                'student_id' : studentId,
-                'work' : work
+                'student_id': studentId,
+                'work': work
             },
             success: function () {
                 $(removeFail).remove();
@@ -270,7 +350,7 @@
 
     }
 
-    function fail(id,topicId,studentId,work) {
+    function fail(id, topicId, studentId, work) {
         var removeDone = document.getElementById(id + '-done')
         $.ajaxSetup({
             headers: {
@@ -280,10 +360,10 @@
         $.ajax({
             url: "/instructor/outline/work/fail",
             type: 'post',
-            data:{
+            data: {
                 'topicId': topicId,
-                'student_id' : studentId,
-                'work' : work
+                'student_id': studentId,
+                'work': work
             },
             success: function () {
                 $(removeDone).remove();

@@ -25,7 +25,7 @@ class InstructorProgressController extends Controller
         $studentInCompany = DB::table('assignment')->join('students','assignment.student_id','=','students.student_id')->where('company_id',$idCompany)
                                                     ->where('company_confirm','=','Approved')->get();
     
-        return view('instructor.instructor_intern_management',compact('idCompany','studentInCompany'));
+        return view('instructor.instructor_student_manage',compact('idCompany','studentInCompany'));
 
     }
 
