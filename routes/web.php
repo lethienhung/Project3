@@ -36,6 +36,7 @@ Route::get('logout', function () {
 Route::get('/assignment/waiting', 'AssignmentController@show');
 
 Route::group(['middleware' => ['auth']], function () {
+    //Topic info, student cv - Done
     Route::get('/topic/{topic_id}', 'TopicController@index');
     Route::get('/student/cv/{student_id}', 'StudentCvController@index');
     Route::get('/topic', 'ListTopicController@index');
@@ -47,7 +48,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 });
 
-//Routes only accessable by admin
+//Routes only accessable by <admin></admin>
 Route::group(['middleware' => ['auth', 'admin']], function () {
 
     Route::get('/admin/dashboard', 'AdminController@indexDashboard');
@@ -71,14 +72,13 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 //Routes only accessable by company
 Route::group(['middleware' => ['auth', 'company']], function () {
 
-
     //Representation and Company profile
     Route::post('/company/representation/{representation_id}', 'RepresentationCompanyController@store');
     Route::get('/company/representation/{representation_id}', 'RepresentationCompanyController@index');
 
     //Create Topic
-    Route::get('company/topics/create', 'TopicController@create');
-    Route::post('company/topics/create', 'TopicController@store');
+    Route::get('company/intern/', 'CompanyInternController@index');
+    Route::post('company/topic/create', 'TopicController@store');
 
     // approve/decline student
     Route::get('company/assign', 'CompanyAssignController@create');

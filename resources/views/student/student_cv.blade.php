@@ -182,7 +182,7 @@
                                         </div>
                                         <div class="portlet-body">
                                             <!-- BEGIN FORM-->
-                                            <form action="#" class="form-horizontal" method="post" id="form_sample_1">
+                                            <form action="#" class="form-horizontal" method="post" id="form_sample_2">
 
                                                 <div class="form-body">
                                                     <div class="alert alert-danger display-hide">

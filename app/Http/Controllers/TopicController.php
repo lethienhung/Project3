@@ -42,12 +42,7 @@ class TopicController extends Controller
 
     public function create(RepresentationCompany $rep)
     {
-        $topicId = $rep->getTopicId();
-        $companyTopic = Topic::whereIn('topic_id', $topicId)->paginate(8);
-        $count = Topic::whereIn('topic_id', $topicId)->count();
-        return view('topic.companytopic', compact('companyTopic', 'count'))
-            ->with('skills', DB::table('skills')->get())
-            ->with('level', DB::table('level')->get());
+        
     }
 
     public function store(Request $request)

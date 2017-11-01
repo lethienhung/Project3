@@ -29,7 +29,7 @@ where('quantity','>',0)->get();
             ->select('assignment.student_id', 'assignment.company_id', 'assignment.topic_id', 'assignment.company_confirm', 'assignment.status', 'students.first_name',
                 'students.last_name', 'topic.title')
             ->paginate(10);
-        return view('company/internship')->with('assign', $assign);
+        return view('company.internship')->with('assign', $assign);
     }
 
     /**
