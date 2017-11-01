@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/insertadmin','UserController@insertadmin');
 Route::get('storage/{filename}', 'InstructorProgressController@get');
 
@@ -34,8 +35,8 @@ Route::get('logout', function () {
 });
 Route::get('/assignment/waiting', 'AssignmentController@show');
 
-
 Route::group(['middleware' => ['auth']], function () {
+    //Topic info, student cv - Done
     Route::get('/topic/{topic_id}', 'TopicController@index');
     Route::get('/student/cv/{student_id}', 'StudentCvController@index');
     Route::get('/topic', 'ListTopicController@index');
@@ -47,9 +48,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 });
 
-//Routes only accessable by admin
+//Routes only accessable by <admin></admin>
 Route::group(['middleware' => ['auth', 'admin']], function () {
-
 
     Route::get('/admin/dashboard', 'AdminController@indexDashboard');
     Route::get('/admin/post', 'LogsController@index');
@@ -72,14 +72,13 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 //Routes only accessable by company
 Route::group(['middleware' => ['auth', 'company']], function () {
 
-
     //Representation and Company profile
     Route::post('/company/representation/{representation_id}', 'RepresentationCompanyController@store');
     Route::get('/company/representation/{representation_id}', 'RepresentationCompanyController@index');
 
     //Create Topic
-    Route::get('company/topics/create', 'TopicController@create');
-    Route::post('company/topics/create', 'TopicController@store');
+    Route::get('company/intern/', 'CompanyInternController@index');
+    Route::post('company/topic/create', 'TopicController@store');
 
     // approve/decline student
     Route::get('company/assign', 'CompanyAssignController@create');
@@ -128,7 +127,6 @@ Route::group(['middleware' => ['auth', 'student']], function () {
 
 });
 
-
 Route::group(['middleware' => ['auth', 'manager']], function () {
 
 
@@ -141,12 +139,12 @@ Route::group(['middleware' => ['auth', 'manager']], function () {
     Route::get('/assign', 'AssignmentController@store');
 
     //Periods
-    Route::get('/manager/periods', 'PeriodController@index');
-    Route::get('/manager/periods/create', 'PeriodController@create');
-    Route::post('/manager/periods/create', 'PeriodController@store');
-    Route::get('manager/period/{period_id}', 'PeriodController@getPeriod');
+    Route::get('periods', 'PeriodController@index');
+    Route::get('periods/create', 'PeriodController@create');
+    Route::post('periods/create', 'PeriodController@store');
     Route::get('manager/period/{period_id}/add/{student_id}', 'PeriodController@addStudentToPeriod');
     Route::get('manager/period/{period_id}/remove/{student_id}', 'PeriodController@removeStudentFromPeriod');
+    Route::get('period/{period_id}', 'PeriodController@getPeriod');
 
     //Profile
     Route::get('/manager/profile', 'InternManagementTeacherController@index');
@@ -179,27 +177,26 @@ Route::group(['middleware' => ['auth', 'lecturer']], function () {
 
 //Routes only accessable by instructor
 Route::group(['middleware' => ['auth','instructor']], function () {
-    Route::get('/instructor/intern', 'InstructorProgressController@index');
+    
     //Instructor outline management - Done
     Route::get('/instructor/outline/{topicId}','OutlineController@createOutline');
     Route::post('/instructor/outline/store','OutlineController@store');
     Route::post('/instructor/outline/work/done','OutlineController@workDone');
     Route::post('/instructor/outline/work/fail','OutlineController@workFail');
     Route::get('/instructor/manage/{student_id}','OutlineController@internManage');
-    Route::get('/company/instructor/{instructor_id}', 'InstructorController@index');//thieu view
-    //Instructor profile
-    Route::get('instructor/create/profile', 'InstructorController@create');//thieu view
-    Route::post('instructor/profile', 'InstructorController@store');//thieu view
+    
+    //Instructor profile - Done
+    Route::get('instructor/profile/{instructor_id}', 'InstructorController@index');
+    Route::post('instructor/update/profile', 'InstructorController@store');
     //Instructor Timekeeping
     //Route::get('instructor/timekeeping', 'TimeKeepingController@index');
     Route::get('instructor/time-keeping/{student_id}', 'InstructorProgressController@create');
     Route::post('instructor/internship', 'InstructorProgressController@store');
-    
 
-    //intern progress
-
-    Route::get('instructor/intern', 'InstructorProgressController@index');
-    Route::post('instructor/intern', 'MarkingController@storeInstructor');
+    //intern progress - Done
+    Route::get('/instructor/intern', 'InstructorProgressController@index');
+    Route::post('/instructor/mark/{student_id}', 'MarkingController@storeInstructorMark');
+    Route::post('/instructor/evaluate/{student_id}','MarkingController@storeInstructorEvaluation');
 
 
 });

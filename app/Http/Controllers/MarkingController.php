@@ -23,19 +23,12 @@ class MarkingController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function storeLecturerMark(Request $request,$student_id)
     {
-        $student_id = $request->stdid;
+        
         DB::table('mark')->where('student_id', $student_id)
             ->update([
                 'mark_lecturer' => $request->mark,
-                'lecturer_id' => Auth::user()->user_id,
-                'created_at' => date('Y-m-d H-m-s')
-            ]);
-
-        DB::table('evaluation')->where('student_id', $student_id)
-            ->update([
-                'content_lecturer' => $request->evaluation,
                 'lecturer_id' => Auth::user()->user_id,
                 'created_at' => date('Y-m-d H-m-s')
             ]);
@@ -45,20 +38,24 @@ class MarkingController extends Controller
 
         return redirect('lecturer/intern');
     }
-
-    public function storeInstructor(Request $request)
+    
+    public function storeLecturerEvaluation(Request $rerquest,$student_id)
     {
-        $student_id = $request->stdid;
+    
+       DB::table('evaluation')->where('student_id', $student_id)
+            ->update([
+                'content_lecturer' => $request->evaluation,
+                'lecturer_id' => Auth::user()->user_id,
+                'created_at' => date('Y-m-d H-m-s')
+        ]);
+    }
+
+    public function storeInstructorMark(Request $request,$student_id)
+    {
+        
         DB::table('mark')->where('student_id', $student_id)
             ->update([
                 'mark_instructor' => $request->mark,
-                'instructor_id' => Auth::user()->user_id,
-                'created_at' => date('Y-m-d H-m-s')
-            ]);
-
-        DB::table('evaluation')->where('student_id', $student_id)
-            ->update([
-                'content_instructor' => $request->evaluation,
                 'instructor_id' => Auth::user()->user_id,
                 'created_at' => date('Y-m-d H-m-s')
             ]);
@@ -67,5 +64,15 @@ class MarkingController extends Controller
         LogsController::logging($activity);
 
         return redirect('instructor/intern');
+    }
+     
+    public function storeInstructorEvaluation(Request $request, $student_id)
+    {
+        DB::table('evaluation')->where('student_id', $student_id)
+            ->update([
+                'content_instructor' => $request->evaluation,
+                'instructor_id' => Auth::user()->user_id,
+                'created_at' => date('Y-m-d H-m-s')
+            ]);
     }
 }

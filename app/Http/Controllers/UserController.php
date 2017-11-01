@@ -23,9 +23,9 @@ class UserController extends Controller
 
     public function index()
     {
-        //$users = User::all()->except('1');
+       
         $users = DB::table('users')->where('user_id', '!=', 'admin')->paginate(8);
-        return view('admin.users')->with('users', $users);
+        return view('admin.newusers')->with('users', $users);
     }
 
     public function grade()

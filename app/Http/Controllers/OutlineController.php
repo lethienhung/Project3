@@ -76,8 +76,14 @@ class OutlineController extends Controller
         $countWorked = DB::table('outline_work')->select(DB::raw('COUNT(work) as done'))
                         ->where('student_id',$student_id)->where('status','=','Done')->first();
         //$workByWeek = DB::table('outline_work')->where('student_id',$id)->whereIn('week',$allWeek)->get();
+       /**Begin Marking Part */
+        $student_mark = DB::table('mark')->where('student_id','=',$student_id)->first();
+        $student_evaluate = DB::table('evaluation')->where('student_id',$student_id)->first();
+       /**End Marking Part */
+        
         return view('instructor.instructor_intern_manage', 
-        compact('student', 'instructor', 'topic', 'company', 
+       
+        compact('student', 'instructor', 'topic', 'company','student_mark','student_evaluate',
                 'evaluation', 'endDateFeedback','outline',
                 'countWorking','countWorked','student_id'));
         
