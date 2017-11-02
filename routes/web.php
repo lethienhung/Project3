@@ -72,15 +72,15 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 //Routes only accessable by company
 Route::group(['middleware' => ['auth', 'company']], function () {
 
-    //Representation and Company profile
+    //Representation and Company profile 
     Route::post('/company/representation/{representation_id}', 'RepresentationCompanyController@store');
     Route::get('/company/representation/{representation_id}', 'RepresentationCompanyController@index');
 
-    //Create Topic
+    //Create Topic- done
     Route::get('company/intern/', 'CompanyInternController@index');
     Route::post('company/topic/create', 'TopicController@store');
 
-    // approve/decline student
+    // approve/decline student -done
     Route::get('company/assign', 'CompanyAssignController@create');
     Route::get('company/assign/approve', 'CompanyAssignController@update');
     Route::get('company/assign/decline', 'CompanyAssignController@destroy');
