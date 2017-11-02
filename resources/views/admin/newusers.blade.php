@@ -219,5 +219,5 @@
 
 @section('pagescript')
 	@parent
-	<script src="/assets/pages/scripts/table-datatables-fixedheader.min.js" type="text/javascript"></script>
+	<script src="../assets/pages/scripts/table-datatables-editable.min.js" type="text/javascript"></script>
 @endsection

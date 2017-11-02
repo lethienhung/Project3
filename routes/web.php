@@ -48,13 +48,18 @@ Route::group(['middleware' => ['auth']], function () {
 
 });
 
-//Routes only accessable by <admin></admin>
+//Routes only accessable by admin
 Route::group(['middleware' => ['auth', 'admin']], function () {
 
     Route::get('/admin/dashboard', 'AdminController@indexDashboard');
     Route::get('/admin/post', 'LogsController@index');
     //Information about user
     Route::get('/admin/users', 'UserController@index');
+
+    //points
+    Route::get('points', function(){
+        return view('admin.point_manage');
+    });
 
     //grade
     Route::get('/admin/grade', 'UserController@grade');
@@ -171,6 +176,17 @@ Route::group(['middleware' => ['auth', 'lecturer']], function () {
 
     //Decide approve/decline topics
 
+    Route::get('studentlist', function(){
+        return view('lecturer.student_list');
+    });
+
+    Route::get('studentlist/student', function(){
+        return view('lecturer.student_mark');
+    });
+
+    Route::get('studentlist/student/mark', function(){
+        return view('lecturer.mark_period');
+    });
 });
 
 //Routes only accessable by instructor
