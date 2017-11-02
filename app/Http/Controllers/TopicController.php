@@ -7,6 +7,7 @@ use App\Topic;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class TopicController extends Controller
 {
@@ -23,10 +24,14 @@ class TopicController extends Controller
 
     public function index($topicId)
     {
+        $student_id = Auth::user()->user_id;
+        $stdInTopic = DB::table('aspiration')->where('student_id',$student_id)->pluck('topic_id');
+        $countNumberAspiration = DB::table('aspiration')->where('student_id',$student_id)->count();
+        $stdAssigned = DB::table('assignment')->where('student_id',$student_id)->count();
         $company_id = DB::table('representation_company')->join('topic', 'representation_company.representation_id', '=', 'topic.representation_id')
             ->where('topic.topic_id', '=', $topicId)->pluck('company_id');
         $other_topic = DB::table('topic')->where('representation_id','=',$company_id)->take(6)->get();
-        return view('topic.topic_detail',compact('other_topic'))->with('topic_id', Topic::where('topic_id', '=', $topicId)->first())
+        return view('topic.topic_detail',compact('other_topic','stdInTopic','countNumberAspiration','stdAssigned'))->with('topic_id', Topic::where('topic_id', '=', $topicId)->first())
             ->with('company', DB::table('company')
                 ->join('representation_company', 'representation_company.company_id', '=', 'company.company_id')
                 ->where('representation_company.company_id', '=', $company_id)->first())
@@ -47,14 +52,60 @@ class TopicController extends Controller
 
     public function store(Request $request)
     {
-        $rep = new RepresentationCompany();
-        $rep->createTopic(request([
-            'topic_id',
-            'title',
-            'topic_content',
-            'quantity',
-            'otherRequire',
-        ]));
+
+        $skills = array();
+        $level = array();
+        array_push($skills,$request->skill1);
+        array_push($skills,$request->skill2);
+        array_push($skills,$request->skill3);
+        array_push($level,$request->level1);
+        array_push($level,$request->level2);
+        array_push($level,$request->level3);
+
+        $now = Carbon::now();
+        $secretKey = $now . $request->email;
+        $phone_number = $request->phone_number;
+        $hashTopicId = hash_hmac('sha1', $phone_number, $secretKey);
+        $topicId = strtoupper(substr($hashTopicId, 0, 6));
+
+        DB::table('topic')->insert([
+            'topic_id'=> $topicId,
+            'title' => $request->title,
+            'email' => $request->email,
+            'documentation' =>$request->documentation,
+            'quantity' => $request->quantity,
+            'phone_number' => $request->phone_number,
+            'position' => $request->position,
+            'salary' => $request->salary,
+            'priority' => $request->priority,
+            'content' => $request->content,
+            'otherRequire' => $request->other_require,
+            'representation_id' => Auth::user()->user_id,
+            'status' => "Pending",
+            'created_at' => $now
+        ]);
+
+    
+        foreach($skills as $sk){
+            $lv1 = $level[0];
+            DB::table('topic_skills')->insert([
+                'topic_id' => $topicId,
+                'skills_name' => $sk,
+                'level_name'=> 'Advanced'
+            ]);
+            DB::table('topic_skills')->where('topic_id',$topicId)->where('skills_name', $sk)->update([
+                'level_name'=> $lv1
+                
+            ]);
+            array_splice($level, 0, 1);
+            unset($lv1);
+        }
+
+        DB::table('topic_field')->insert([
+            'field_name' => $request->field_name,
+            'topic_id' => $topicId,
+            'created_at' => $now
+        ]);
 
         return redirect()->back();
     }

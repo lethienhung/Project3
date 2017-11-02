@@ -48,13 +48,18 @@ Route::group(['middleware' => ['auth']], function () {
 
 });
 
-//Routes only accessable by <admin></admin>
+//Routes only accessable by admin
 Route::group(['middleware' => ['auth', 'admin']], function () {
 
     Route::get('/admin/dashboard', 'AdminController@indexDashboard');
     Route::get('/admin/post', 'LogsController@index');
     //Information about user
     Route::get('/admin/users', 'UserController@index');
+
+    //points
+    Route::get('points', function(){
+        return view('admin.point_manage');
+    });
 
     //grade
     Route::get('/admin/grade', 'UserController@grade');
@@ -72,20 +77,19 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 //Routes only accessable by company
 Route::group(['middleware' => ['auth', 'company']], function () {
 
-    //Representation and Company profile
+    //Representation and Company profile 
     Route::post('/company/representation/{representation_id}', 'RepresentationCompanyController@store');
     Route::get('/company/representation/{representation_id}', 'RepresentationCompanyController@index');
 
-    //Create Topic
+    //Create Topic- done
     Route::get('company/intern/', 'CompanyInternController@index');
     Route::post('company/topic/create', 'TopicController@store');
 
-    // approve/decline student
+    // approve/decline student - done
     Route::get('company/assign', 'CompanyAssignController@create');
-    Route::get('company/assign/approve', 'CompanyAssignController@update');
-    Route::get('company/assign/decline', 'CompanyAssignController@destroy');
+    Route::post('company/assign/approve/{student_id}', 'CompanyAssignController@update');
+    Route::post('company/assign/decline/{student_id}', 'CompanyAssignController@destroy');
     Route::get('company/choose', 'CompanyAssignController@show');
-    Route::get('company/assign/{student_id}', 'CompanyAssignController@index');
     Route::get('company/recruit', 'AssignmentController@update');
 
     //register account for instructor
@@ -108,8 +112,7 @@ Route::group(['middleware' => ['auth', 'student']], function () {
     Route::post('student/cv/update', 'StudentCvController@store');
 
     //Student Aspiration
-    Route::get('student/create/aspiration', 'AspirationController@create');
-    Route::post('student/aspiration/', 'AspirationController@store');
+    Route::post('student/sendCv/{student_id}', 'AspirationController@store');
 
     //Student Report-done
     Route::post('/upload/report', 'ReportController@uploadReport');
@@ -173,6 +176,17 @@ Route::group(['middleware' => ['auth', 'lecturer']], function () {
 
     //Decide approve/decline topics
 
+    Route::get('studentlist', function(){
+        return view('lecturer.student_list');
+    });
+
+    Route::get('studentlist/student', function(){
+        return view('lecturer.student_mark');
+    });
+
+    Route::get('studentlist/student/mark', function(){
+        return view('lecturer.mark_period');
+    });
 });
 
 //Routes only accessable by instructor
