@@ -2,12 +2,16 @@
 <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 <link href="/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
 <link href="/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css"
-/> @endsection @section('page-level-css')
+/> 
+<link href="/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+@endsection @section('page-level-css')
 <link href="/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
 <link href="/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css"
 />
 <link href="/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css"
-/> @endsection @section('content')
+/> 
+
+@endsection @section('content')
 <div class="page-content-wrapper">
     <!-- BEGIN CONTENT BODY -->
     <div class="page-content">
@@ -348,10 +352,10 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group btn-group btn-group-solid">
-                                                        <a href="javascript:;" class="btn btn-icon-only green">
+                                                        <a href="javascript:;" onclick="approve('{{$std->student_id}}','{{$std->topic_id}}')" class="btn btn-icon-only green">
                                                             <i class="fa fa-check"></i>
                                                         </a>
-                                                        <a href="javascript:;" class="btn btn-icon-only red">
+                                                        <a href="javascript:;" onclick="decline('{{$std->student_id}}')" class="btn btn-icon-only red">
                                                             <i class="fa fa-times"></i>
                                                         </a>
                                                     </div>
@@ -370,12 +374,14 @@
             </div>
             <!-- END CONTENT BODY -->
         </div>
+        
         @endsection @section('page-level-js-plugins')
         <script src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
         <script src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
         <script src="/assets/global/scripts/datatable.js" type="text/javascript"></script>
         <script src="/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
         <script src="/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+        <script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js" type="text/javascript"></script>
         @endsection @section('page-level-js')
         <script src="/assets/pages/scripts/form-validation-md.min.js" type="text/javascript"></script>
         <script src="/assets/global/plugins/moment.min.js" type="text/javascript"></script>
@@ -386,7 +392,7 @@
         <script src="/assets/global/plugins/clockface/js/clockface.js" type="text/javascript"></script>
         <script src="/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
         <script src="/assets/pages/scripts/table-datatables-fixedheader.min.js" type="text/javascript"></script>
-
+        <script src="/assets/pages/scripts/ui-toastr.min.js" type="text/javascript"></script>
         <script>
             $.ajaxSetup({
                 headers: {
@@ -398,4 +404,52 @@
         <script src="https://unpkg.com/vue@2.4.2"></script>
         <script src="/js/company/create_topic.js"></script>
         <script src="/js/company/assign_student_company.js"></script>
+        <script>
+            function approve(student_id,topic_id) {
+               
+                $.ajax({
+
+                    url: "company/assign/approve/"+student_id,
+                    type: 'post',
+                    data: {
+                        topic_id : topic_id
+                    },
+                
+                    success: function (data) {
+
+                        if ($.isEmptyObject(data.error)) {                        
+                            alert('Done');
+                        } else {
+                            
+                            printErrorMsg(data.error);
+                        }
+                    }
+
+                });
+
+            }
+            function decline(student_id) {
+                $.ajax({
+
+                    url: "company/assign/decline/"+student_id,
+                    type: 'post',
+                    data: {
+                        student_id : student_id
+                        
+                    },
+                
+                    success: function (data) {
+
+                        if ($.isEmptyObject(data.error)) {                        
+                            alert('Done');
+                        } else {
+                            
+                            printErrorMsg(data.error);
+                        }
+                    }
+
+                });
+
+            }
+        </script>
         @endsection

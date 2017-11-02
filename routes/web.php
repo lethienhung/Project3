@@ -80,12 +80,11 @@ Route::group(['middleware' => ['auth', 'company']], function () {
     Route::get('company/intern/', 'CompanyInternController@index');
     Route::post('company/topic/create', 'TopicController@store');
 
-    // approve/decline student -done
+    // approve/decline student - done
     Route::get('company/assign', 'CompanyAssignController@create');
-    Route::get('company/assign/approve', 'CompanyAssignController@update');
-    Route::get('company/assign/decline', 'CompanyAssignController@destroy');
+    Route::post('company/assign/approve/{student_id}', 'CompanyAssignController@update');
+    Route::post('company/assign/decline/{student_id}', 'CompanyAssignController@destroy');
     Route::get('company/choose', 'CompanyAssignController@show');
-    Route::get('company/assign/{student_id}', 'CompanyAssignController@index');
     Route::get('company/recruit', 'AssignmentController@update');
 
     //register account for instructor
@@ -108,8 +107,7 @@ Route::group(['middleware' => ['auth', 'student']], function () {
     Route::post('student/cv/update', 'StudentCvController@store');
 
     //Student Aspiration
-    Route::get('student/create/aspiration', 'AspirationController@create');
-    Route::post('student/aspiration/', 'AspirationController@store');
+    Route::post('student/sendCv/{student_id}', 'AspirationController@store');
 
     //Student Report-done
     Route::post('/upload/report', 'ReportController@uploadReport');

@@ -24,10 +24,14 @@ class TopicController extends Controller
 
     public function index($topicId)
     {
+        $student_id = Auth::user()->user_id;
+        $stdInTopic = DB::table('aspiration')->where('student_id',$student_id)->pluck('topic_id');
+        $countNumberAspiration = DB::table('aspiration')->where('student_id',$student_id)->count();
+        $stdAssigned = DB::table('assignment')->where('student_id',$student_id)->count();
         $company_id = DB::table('representation_company')->join('topic', 'representation_company.representation_id', '=', 'topic.representation_id')
             ->where('topic.topic_id', '=', $topicId)->pluck('company_id');
         $other_topic = DB::table('topic')->where('representation_id','=',$company_id)->take(6)->get();
-        return view('topic.topic_detail',compact('other_topic'))->with('topic_id', Topic::where('topic_id', '=', $topicId)->first())
+        return view('topic.topic_detail',compact('other_topic','stdInTopic','countNumberAspiration','stdAssigned'))->with('topic_id', Topic::where('topic_id', '=', $topicId)->first())
             ->with('company', DB::table('company')
                 ->join('representation_company', 'representation_company.company_id', '=', 'company.company_id')
                 ->where('representation_company.company_id', '=', $company_id)->first())
