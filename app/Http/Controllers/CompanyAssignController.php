@@ -10,9 +10,12 @@ use Illuminate\Support\Facades\Auth;
 class CompanyAssignController extends Controller
 {
 
-    public function index($student_id)
+    public function index()
     {
-        
+        $company_id = Auth::user()->user_id;
+        return DB::table('assignment')->where('assignment.representation_id',$company_id)
+        ->join('topic','assignment.representation_id','=','topic.representation_id')
+        ->groupBy('assignment.student_id')->get();
     }
 
 
@@ -27,14 +30,22 @@ class CompanyAssignController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function pickStudent(Request $request,$student_id)
     {
         if ($request->ajax()) {
-            $student_id = $request->student_id;
+            /* Get Company ID */
+            $representation = DB::table('representation_company')->where('representation_id', Auth::user()->user_id)->first();
+            $company_id = $representation->company_id;
+            /* Get Topic ID */
             $topic_id = $request->topic_id;
-            DB::table('assignment')->where('student_id', $student_id)->update([
+
+            DB::table('assignment')->insert([
+                'student_id' => $student_id,
+                'company_id' => $company_id,
                 'topic_id' => $topic_id,
-                'company_confirm' => "Approved"
+                'representation_id' => Auth::user()->user_id,
+                'company_confirm' => "Approved",
+                'status' => "Pending"
             ]);
         }
     }
@@ -42,10 +53,8 @@ class CompanyAssignController extends Controller
 
     public function show()
     {
-        //
-        $students = DB::table('students')
-            ->join('aspiration', 'students.student_id', '=', 'aspiration.student_id')->paginate(10);
-        return view('company.choosestudent')->with('students', $students);
+  
+      
     }
 
     /**
@@ -68,20 +77,19 @@ class CompanyAssignController extends Controller
      */
     public function update(Request $request,$student_id)
     {
-        if ($request->ajax()) {
-            DB::table('assignment')->where('student_id', '=', $student_id)->update(['company_confirm' => "Approved"]);
-            /* Declare variables */
-            $id = Auth::user()->user_id;
-            $instructor = DB::table('instructor_company')->where('company_id',$id)->first();
-            DB::table('student_instructor_company')
-                ->insert([
-                    'instructor_id' => $instructor->instructor_id,
-                    'student_id' => $student_id
-                ]);
-            DB::table('topic')->where('topic_id', '=', $topic_id)->decrement('quantity',1);
+    
+        DB::table('assignment')->where('student_id', '=', $student_id)->update(['company_confirm' => "Approved"]);
+        /* Declare variables */
+        $id = Auth::user()->user_id;
+        $instructor = DB::table('instructor_company')->where('company_id',$id)->first();
+        DB::table('student_instructor_company')
+            ->insert([
+                'instructor_id' => $instructor->instructor_id,
+                'student_id' => $student_id
+            ]);
+        DB::table('topic')->where('topic_id', '=', $topic_id)->decrement('quantity',1);
 
-
-        }
+        
     }
 
     /**
@@ -92,9 +100,9 @@ class CompanyAssignController extends Controller
      */
     public function destroy(Request $request)
     {
-        if ($request->ajax()) {
+        
             DB::table('assignment')->where('student_id', $request->student_id)->update(['status' => "Declined"]);
-        }
+        
     }
 
 }
