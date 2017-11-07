@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+    
 
 Route::get('/insertadmin','UserController@insertadmin');
 Route::get('storage/{filename}', 'InstructorProgressController@get');
@@ -84,25 +85,26 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
 //Routes only accessable by company
 Route::group(['middleware' => ['auth', 'company']], function () {
+    
 
     //Representation and Company profile 
     Route::post('/company/representation/{representation_id}', 'RepresentationCompanyController@store');
     Route::get('/company/representation/{representation_id}', 'RepresentationCompanyController@index');
 
     //Create Topic- done
-    Route::get('company/intern/', 'CompanyInternController@index');
-    Route::post('company/topic/create', 'TopicController@store');
+    Route::get('/company/intern/', 'CompanyInternController@index');
+    Route::post('/company/topic/create', 'TopicController@store');
 
     // approve/decline student - done
-    Route::get('company/assign', 'CompanyAssignController@create');
-    Route::post('company/assign/approve/{student_id}', 'CompanyAssignController@update');
-    Route::post('company/assign/decline/{student_id}', 'CompanyAssignController@destroy');
-    Route::get('company/choose', 'CompanyAssignController@show');
-    Route::get('company/recruit', 'AssignmentController@update');
-
-    //register account for instructor
-    Route::get('company/instructor/create', 'CompanyController@createInstructor');
-    Route::post('company/instructor/create', 'CompanyController@storeInstructor');
+    
+    Route::resource('/get/assignment','CompanyAssignController');
+    Route::get('/company/assign', 'CompanyAssignController@create');//Fetch data student assigned to company 
+    Route::post('/company/assign/approve/{student_id}', 'CompanyAssignController@update');
+    Route::post('/company/assign/decline/{student_id}', 'CompanyAssignController@destroy');
+    Route::post('/company/assign/pick/{student_id}','CompanyAssignController@pickStudent');
+    //register account for instructor - done
+    Route::get('/company/instructor/create', 'CompanyController@createInstructor');
+    Route::post('/company/instructor/create', 'CompanyController@storeInstructor');
 
 
 });

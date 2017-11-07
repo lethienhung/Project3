@@ -91,7 +91,7 @@
                                             @foreach($topic as $tp)
                                             <tr>
                                                 <td> {{$tp->id}} </td>
-                                                <td> {{$tp->topic_id}} </td>
+                                                <td> <a href="/topic/{{$tp->topic_id}}" target="_blank">{{$tp->topic_id}}</a> </td>
                                                 <td> {{$tp->title}} </td>
                                                 <td> {{$tp->quantity}} </td>
                                                 <td>
@@ -259,7 +259,7 @@
                                                 <div class="form-group form-md-line-input">
                                                     <label class="col-md-3 control-label" for="form_control_1">Third Skills</label>
                                                     <div class="col-md-6">
-                                                        <select class="form-control" id="skill3" v-model="skill1">
+                                                        <select class="form-control" id="skill3" v-model="skill3">
                                                             <option value="">Select</option>
                                                             @foreach($skills as $skill)
                                                             <option value="{{$skill->name}}">{{$skill->name}}</option>
@@ -336,34 +336,34 @@
 
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            @foreach($studentWithTopic as $std)
-                                            <tr>
-                                                <td> {{$std->id}} </td>
-                                                <td> {{$std->student_id}}</td>
-                                                <td> {{$std->topic_id}} </td>
-                                                <td> {{$std->title}} </td>
-                                                <td> {{$std->quantity}} </td>
+                                        <tbody id="student-assign">
+                                            
+                                            <tr v-for="std in list">
+                                                <td> @{{std.id}} </td>
+                                                <td> @{{std.student_id}}</td>
+                                                <td> @{{std.topic_id}}</td>
+                                                <td> @{{std.title}} </td>
+                                                <td> @{{std.quantity}} </td>
                                                 <td>
-                                                    <span class="label label-success">{{$std->status}}</span>
+                                                    <span class="label label-success">@{{std.status}}</span>
                                                 </td>
                                                 <td>
-                                                    <span class="label label-success">{{$std->company_confirm}}</span>
+                                                    <span class="label label-success">@{{std.company_confirm}}</span>
                                                 </td>
                                                 <td>
-                                                    <div class="btn-group btn-group btn-group-solid">
-                                                        <a href="javascript:;" onclick="approve('{{$std->student_id}}','{{$std->topic_id}}')" class="btn btn-icon-only green">
+                                                 <div class="btn-group btn-group btn-group-solid">
+                                                        <a href="javascript:;" @click="approve(std.student_id)" class="btn btn-icon-only green">
                                                             <i class="fa fa-check"></i>
                                                         </a>
-                                                        <a href="javascript:;" onclick="decline('{{$std->student_id}}')" class="btn btn-icon-only red">
+                                                        <a href="javascript:;" @click="decline(std.student_id)" class="btn btn-icon-only red">
                                                             <i class="fa fa-times"></i>
                                                         </a>
-                                                    </div>
+                                                    </div>   
                                                 </td>
-
+                                                
                                             </tr>
-                                            @endforeach
-                                        </tbody>
+                                            
+                                        </tbod>
                                     </table>
                                 </div>
                             </div>
@@ -404,7 +404,7 @@
         <script src="https://unpkg.com/vue@2.4.2"></script>
         <script src="/js/company/create_topic.js"></script>
         <script src="/js/company/assign_student_company.js"></script>
-        <script>
+        {{--  <script>
             function approve(student_id,topic_id) {
                
                 $.ajax({
@@ -418,7 +418,7 @@
                     success: function (data) {
 
                         if ($.isEmptyObject(data.error)) {                        
-                            alert('Done');
+                            alert('Done Approved');
                         } else {
                             
                             printErrorMsg(data.error);
@@ -441,7 +441,7 @@
                     success: function (data) {
 
                         if ($.isEmptyObject(data.error)) {                        
-                            alert('Done');
+                            alert('Done Decine');
                         } else {
                             
                             printErrorMsg(data.error);
@@ -451,5 +451,5 @@
                 });
 
             }
-        </script>
+        </script>  --}}
         @endsection
