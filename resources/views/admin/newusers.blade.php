@@ -1,8 +1,8 @@
 @extends('layouts.mainlayout')
 
-@section('title', 'Danh sách đợt thực tập')
+@section('title', 'Danh sách người dùng')
 
-@section('pageplugins1')
+@section('page-level-css-plugins')
 	@parent
 	<link href="/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
@@ -210,14 +210,14 @@
             </div>
 @endsection
 
-@section('pageplugins2')
+@section('page-level-js-plugins')
 	@parent
 	<script src="/assets/global/scripts/datatable.js" type="text/javascript"></script>
     <script src="/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
     <script src="/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
 @endsection
 
-@section('pagescript')
+@section('page-level-js')
 	@parent
-	<script src="../assets/pages/scripts/table-datatables-editable.min.js" type="text/javascript"></script>
+	<script src="/assets/pages/scripts/table-datatables-editable.min.js" type="text/javascript"></script>
 @endsection

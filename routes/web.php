@@ -61,6 +61,14 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         return view('admin.point_manage');
     });
 
+    Route::get('points/student', function(){
+        return view('admin.point');
+    });
+
+    Route::get('points/student/mark', function(){
+        return view('lecturer.mark_period');
+    });
+
     //grade
     Route::get('/admin/grade', 'UserController@grade');
     //Create User
@@ -176,6 +184,10 @@ Route::group(['middleware' => ['auth', 'lecturer']], function () {
 
     //Decide approve/decline topics
 
+    Route::get('/lecturer/dashboard', function(){
+        return view('lecturer.dashboard');
+    });
+
     Route::get('studentlist', function(){
         return view('lecturer.student_list');
     });
@@ -211,6 +223,5 @@ Route::group(['middleware' => ['auth','instructor']], function () {
     Route::get('/instructor/intern', 'InstructorProgressController@index');
     Route::post('/instructor/mark/{student_id}', 'MarkingController@storeInstructorMark');
     Route::post('/instructor/evaluate/{student_id}','MarkingController@storeInstructorEvaluation');
-
 
 });

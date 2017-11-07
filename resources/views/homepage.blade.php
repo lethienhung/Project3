@@ -176,23 +176,9 @@
                     </div>
                 @endif
                 @if(Auth::user()->role == 'lecturer')
-                    <div class="col-md-4" style="margin-left: 35%">
-                        <div class="teacher">
-
-
-                            <img src="{{asset('images/teacherava.png')}}" alt="" class="img-responsive"
-                                 onclick="
-                                         location.href = 'teacher/lecturer/{{Auth::user()->user_id}}';
-                                         "/>
-
-                            <div class="dom"><span>FOR</span> TEACHER</div>
-                            <div class="detailinfo">Lorem ipsum dolor sit armet, consectetuer adipiscing elit, sed diam
-                                nonumy
-                                nibh equismod tincidunt ut laoreet.
-                            </div>
-                        </div>
-
-                    </div>
+                    <script type="text/javascript">
+                        window.location = "{{ url('/lecturer/dashboard') }}";//here double curly bracket
+                    </script>
                 @endif
                 @if(Auth::user()->role == 'company')
                     <div class="col-md-4" style="margin-left: 35%">
