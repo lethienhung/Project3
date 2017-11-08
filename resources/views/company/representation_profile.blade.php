@@ -1,288 +1,371 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{asset('/css/bootstrap.css')}}">
-    <link rel="stylesheet" href="{{asset('/css/representation_profile.css')}}">
-    <script src="{{asset('https://use.fontawesome.com/f5c1a979a9.js')}}"></script>
+@extends('layouts.profile') 
+@section('title','Company Profile')  
+@endsection 
 
-</head>
-<body>
-
-
-<div class="banner">
-    <div class="wide">
-
-        <div class="top">
-            <div class="container">
+@section('content')
+<!-- BEGIN PAGE BASE CONTENT -->
+<div class="profile">
+    <div class="tabbable-line tabbable-full-width">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#tab_1_1" data-toggle="tab"> Profile </a>
+            </li>
+            <li>
+                <a href="#tab_1_3" data-toggle="tab"> Edit </a>
+            </li>
+            <li>
+                <a href="#tab_1_6" data-toggle="tab"> Help </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_1_1">
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="logo">
-                            <img src="/images/logo.png" alt="" class="img-responsive"/>
-                        </div>
+                    <div class="col-md-3">
+                        <ul class="list-unstyled profile-nav">
+                            <li>
+                                <img src="../assets/pages/media/profile/people19.png" class="img-responsive pic-bordered" alt="" />
+                                <a href="javascript:;" class="profile-edit"> edit </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;"> Projects </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;"> Messages
+                                    <span> 3 </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;"> Friends </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;"> Settings </a>
+                            </li>
+                        </ul>
                     </div>
-                    @include('layouts.logout')
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="container inside">
-
-            <div class="row">
-                <div class="col-md-12">
-                    <h1>WELCOME TO SIE INTERN WEBSITE</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>Student Intern Program for SIE, students can find internships and <br/>employment opportunities
-                        in the world’s marketplace</h2>
-                </div>
-
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="registerbtn">REGISTER NOW</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="main">
-    <div class="container">
-        <div class="col-md-3 sidebar">
-            <div class="managementteacherpicture">
-                <img src="/images/ava1.png" alt="" class="img-responsive"/>
-
-            </div>
-
-            <div class="selections">
-                <ul>
-                    <li><i class="fa fa-user" aria-hidden="true"></i><a href="">User infomation</a></li>
-                    <li><i class="fa fa-file-text-o" aria-hidden="true"></i><a href="/company/assign">Student Assign</a>
-                    </li>
-                    <li><i class="fa fa-user" aria-hidden="true"></i><a href="/company/instructor/create">Create
-                            Instructor Account</a></li>
-                    <li><i class="fa fa-file-text-o" aria-hidden="true"></i><a href="/company/topics/create">Create
-                            Topic</a></li>
-
-
-                </ul>
-
-
-            </div>
-        </div>
-        @foreach($representation_id as $rep)
-
-
-            <div class="col-md-9 maincontent">
-                <div class="tab">
-                    <button class="tablinks" onclick="managementteachertab(event, 'managementteacherinfo')"><i
-                                class="fa fa-user-circle-o" aria-hidden="true"></i> User Information
-                    </button>
-                    <button class="tablinks" onclick="managementteachertab(event, 'editmanagementteacherinfo')"><i
-                                class="fa fa-cog" aria-hidden="true"></i>
-                        Edit Information
-                    </button>
-                </div>
-
-                <div id="managementteacherinfo" class="tabcontent">
-                    <div class="tab1">
-                        <div class="basicinfo">
-                            <?php
-                            $fname = $rep->first_name;
-                            $lname = $rep->last_name;
-                            $name = $fname . " " . $lname;
-                            ?>
-                            <div class="row">
-                                <div class="managementteachername">{{$name}}</div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-8 profile-info">
+                                
+                                <h1 class="font-green sbold uppercase">{{$representation->first_name}} {{$representation->last_name}}</h1>
+                                <p>{{$company->company_name}}</p>
+                                <p>
+                                    {{$company->address}} 
+                                </p>
+                                <p>
+                                    {{$company->information}}
+                                </p>
+                                <ul class="list-inline">
+                                   <li>
+                                        <i class="fa fa-mail"></i> {{$representation->email}} </li>
+                                    <li>
+                                        <i class="fa fa-briefcase"></i> {{$representation->phone_number}} </li>
+                                    <li>
+                                        <i class="fa fa-star"></i> {{$representation->representation_id}} </li>
+                                    <li>
+                                        <i class="fa fa-heart"></i> {{$representation->position}} </li>
+                                </ul>
                             </div>
-
-                            <div class="row">
-                                <div class="infotitle"><i class="fa fa-phone" aria-hidden="true"></i> Phone :</div>
-                                <div class="managementteacherphone">{{$rep->phone_number}}</div>
+                            <!--end col-md-8-->
+                            <div class="col-md-4">
+                                <div class="portlet sale-summary">
+                                    <div class="portlet-title">
+                                        <div class="caption font-red sbold">  Company Sumary </div>
+                                        <div class="tools">
+                                            <a class="reload" href="javascript:;"> </a>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <span class="sale-info"> Join
+                                                    <i class="fa fa-img-up"></i>
+                                                </span>
+                                                <span class="sale-num"> {{$company->created_at}} </span>
+                                            </li>
+                                            <li>
+                                                <span class="sale-info"> Status
+                                                    <i class="fa fa-img-down"></i>
+                                                </span>
+                                                <span class="sale-num"> Pending </span>
+                                            </li>
+                                            <li>
+                                                <span class="sale-info"> Progress </span>
+                                                <span class="sale-num"> 50% </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="row">
-                                <div class="infotitle"><i class="fa fa-envelope-o" aria-hidden="true"></i> Email :</div>
-                                <div class="managementteachermail">{{$rep->email}}</div>
-                            </div>
-
-                            <div class="row">
-                                @foreach($company as $com)
-                                    <div class="infotitle"><i class="fa fa-road" aria-hidden="true"></i> Company :</div>
-                                    <div class="managementteacheraddress">{{$com->company_name}}</div>
-                                @endforeach
-                            </div>
-
+                            <!--end col-md-4-->
                         </div>
-
-                        <div class="managementteacherexperiences">
-                            <div class="moduleheader">Published Topic</div>
-                            <div class="topictable">
-
-                                <table style="width:100%">
-                                    <tr>
-                                        <th><i class="fa fa-comment-o" aria-hidden="true"></i> Topic name</th>
-                                        <th><i class="fa fa-black-tie" aria-hidden="true"></i> Company</th>
-                                        <th><i class="fa fa-calendar" aria-hidden="true"></i> Date</th>
-                                        <th><i class="fa fa-user-plus" aria-hidden="true"></i> Recruit</th>
-                                    </tr>
-
-                                    @foreach($topic as $top)
-
-                                        @php
-                                            $topicId = $top->topic_id;
-                                            //field
-                                            $field = DB::table('topic_field')->where('topic_field.topic_id','=',$topicId)->pluck('field_name');
-                                            $field_name = $field->first();
-                                            //representation
-                                            $representation = DB::table('topic')->where('topic.topic_id','=',$topicId)->pluck('representation_id');
-                                            $rep_id = $representation->first();
-                                            //company
-                                            $company = DB::table('company')->where('company_id','=',$rep_id)->pluck('company_name');
-                                            $company_name = $company->first();
-
-                                        @endphp
-                                        <tr>
-                                            <td><a href="/topic/{{$top->topic_id}}">{{$top->title}}</a>
-                                                <div class="topicnote">Click for more information</div>
-
-                                            </td>
-                                            <td>{{$company_name}}</td>
-                                            <td>{{$top->created_at}}</td>
-                                            <td>{{$top->quantity}}</td>
-                                        </tr>
-
-
-                                    @endforeach
-
-                                </table>
-
-                            </div>
-                        </div>
-
-                        <div class="managementteachermotivations">
-                            <div class="moduleheader">Motivations</div>
-
-                            <div class="content">{{$rep->company_id}}</div>
-
-                        </div>
-
+                        <!--end row-->
 
                     </div>
                 </div>
+            </div>
+            <!--tab_1_2-->
+            <div class="tab-pane" id="tab_1_3">
+                <div class="row profile-account">
+                    <div class="col-md-3">
+                        <ul class="ver-inline-menu tabbable margin-bottom-10">
+                            <li class="active">
+                                <a data-toggle="tab" href="#tab_1-1">
+                                    <i class="fa fa-cog"></i> Personal info </a>
+                                <span class="after"> </span>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab_2-2">
+                                    <i class="fa fa-picture-o"></i> Change Avatar </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab_3-3">
+                                    <i class="fa fa-lock"></i> Change Password </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab_4-4">
+                                    <i class="fa fa-eye"></i> Privacity Settings </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            <div id="tab_1-1" class="tab-pane active">
+                                <div class="col-md-12">
+                                    <!-- BEGIN VALIDATION STATES-->
+                                    <div class="portlet light portlet-fit portlet-form bordered">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <i class=" icon-layers font-green"></i>
+                                                <span class="caption-subject font-green sbold uppercase">Edit Information</span>
+                                            </div>
+                                            <div class="actions">
+                                                <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                                                    <i class="icon-cloud-upload"></i>
+                                                </a>
+                                                <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                                                    <i class="icon-wrench"></i>
+                                                </a>
+                                                <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                                                    <i class="icon-trash"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body">
+                                            <!-- BEGIN FORM-->
+                                            <form action="#" class="form-horizontal" method="post" id="form_sample_1">
 
-                <div id="editmanagementteacherinfo" class="tabcontent">
-                    <div class="tab2">
-                        <form method="post" action="">
-                            {{csrf_field()}}
-                            <div class="basicform">
-                                <div class="managementteacherphoneform">
-                                    <div class="formtitle">Phone</div>
+                                                <div class="form-body">
+                                                    <div class="alert alert-danger display-hide">
+                                                        <button class="close" data-close="alert"></button>
+                                                        You have some form errors. Please check below.
+                                                    </div>
+                                                    <div class="alert alert-success display-hide">
+                                                        <button class="close" data-close="alert"></button>
+                                                        Your form validation is successful!
+                                                    </div>
+                                                    <div class="form-group form-md-line-input">
+                                                        <label class="col-md-3 control-label" for="form_control_1">First Name
+                                                            <span class="required">*</span>
+                                                        </label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" class="form-control" name="first_name" id="first_name" value="{{$representation->first_name}}">
+                                                            <div class="form-control-focus"></div>
+                                                            <span class="help-block">Enter your first name</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group form-md-line-input">
+                                                        <label class="col-md-3 control-label" for="form_control_1">Last Name
+                                                            <span class="required">*</span>
+                                                        </label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" class="form-control" name="last_name" id="last_name" value="{{$representation->last_name}}">
+                                                            <div class="form-control-focus"></div>
+                                                            <span class="help-block">Enter your last name</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group form-md-line-input">
+                                                        <label class="col-md-3 control-label" for="form_control_1">Email
+                                                            <span class="required">*</span>
+                                                        </label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" class="form-control" placeholder="" name="email" id="email" value="{{$representation->email}}">
+                                                            <div class="form-control-focus"></div>
+                                                            <span class="help-block">Enter your Email</span>
+                                                        </div>
+                                                    </div>
 
-                                    <input type="text" name="phone_number" placeholder="{{old('phone_number')}}"><br>
+                                                    <div class="form-group form-md-line-input">
+                                                        <label class="col-md-3 control-label" for="form_control_1">Phone Number
+                                                            <span class="required">*</span>
+                                                        </label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" class="form-control" placeholder="" name="phone_number" id="phone_number" value="{{$representation->phone_number}}">
+                                                            <div class="form-control-focus"></div>
+                                                            <span class="help-block">Enter a valid phone number</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group form-md-line-input">
+                                                        <label class="col-md-3 control-label" for="form_control_1">
+                                                            Class
+                                                            <span class="required">*</span>
+                                                        </label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" class="form-control" placeholder="" name="cl" id="position" value="{{$representation->position}}">
+                                                            <div class="form-control-focus"></div>
+                                                            <span class="help-block">Enter a position</span>
+                                                        </div>
+                                                    </div>
+                                                   
+                                                    <div class="form-group form-md-line-input">
+                                                        <label class="col-md-3 control-label" for="form_control_1">
+                                                            Address
+                                                            <span class="required">*</span>
+                                                        </label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" class="form-control" placeholder="" name="address" id="address" value="{{$company->address}}">
+                                                            <div class="form-control-focus"></div>
+                                                            <span class="help-block">Enter a valid address</span>
+                                                        </div>
+                                                    </div>
 
-                                </div>
+                                                    <div class="form-group form-md-line-input">
+                                                        <label class="col-md-3 control-label" for="form_control_1">About me
+                                                        </label>
+                                                        <div class="col-md-9">
+                                                            <textarea class="form-control" name="memo" id="about_me" rows="5">{{$company->information}}</textarea>
+                                                            <div class="form-control-focus"></div>
+                                                        </div>
+                                                    </div>
 
-                                <div class="managementteachermailform">
-                                    <div class="formtitle">Email</div>
-
-                                    <input type="text" name="email" placeholder="{{old('email')}}"><br>
-
-                                </div>
-
-                                <div class="managementteacheraddressform">
-                                    <div class="formtitle">Name</div>
-
-                                    <input type="text" name="first_name" placeholder="{{old('first_name')}}"><br>
-
+                                                </div>
+                                                <div class="form-actions">
+                                                    <div class="row">
+                                                        <div class="col-md-offset-3 col-md-9">
+                                                            <button type="submit" id="edit_information" onclick="update('{{Auth::user()->user_id}}')" class="btn green">Edit
+                                                            </button>
+                                                            <button type="reset" class="btn default">Reset</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- END FORM-->
+                                        </div>
+                                    </div>
+                                    <!-- END VALIDATION STATES-->
                                 </div>
                             </div>
+                            <div id="tab_2-2" class="tab-pane">
 
-                            <div class="managementteacherexperiencesform">
-                                <div class="formtitle">Experiences</div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Ảnh</label>
 
-                                <input type="text" name="position" placeholder="{{old('position')}}"><br>
+                                        <form action="{{ url('dropzone') }}" method="post" class="dropzone dropzone-file-area dz-clickable" id="my-dropzone" style="width: 500px;">
+                                            {{csrf_field()}}
 
-                            </div>
+                                            <h3 class="sbold">Drop files here or click to upload</h3>
+                                            <p> This is just a demo dropzone. Selected files are not actually uploaded. </p>
+                                            <div class="dz-default dz-message">
+                                                <span></span>
+                                            </div>
+                                        </form>
 
-                            <div class="managementteachermotivationsform">
-                                <div class="formtitle">Motivations</div>
-
-                                <input type="text" name="motivations" value=""><br>
-
-                            </div>
-
-                            <div class="row">
-                                <div class="dirbutton">
-                                    <div class="col-md-6">
-                                        <button type="reset" class="clearallbtn">CLEAR ALL</button>
+                                        {{--
+                                        <input type="file" class="dropzone dropzone-file-area" id="file" name="image"
+                                            style="width: 500px;"></input> --}}
 
                                     </div>
-                                    <div class="col-md-6">
-                                        <button class="submitbtn" type="submit"> Submit</button>
-                                    </div>
 
                                 </div>
+                            </div>
+                            <div id="tab_3-3" class="tab-pane">
+                                <form action="#" method="post">
 
-
+                                    <div class="form-group">
+                                        <label class="control-label">Current Password</label>
+                                        <input type="password" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">New Password</label>
+                                        <input type="password" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Re-type New Password</label>
+                                        <input type="password" class="form-control" />
+                                    </div>
+                                    <div class="margin-top-10">
+                                        <a href="javascript:;" class="btn green"> Change Password </a>
+                                        <a href="javascript:;" class="btn default"> Cancel </a>
+                                    </div>
+                                </form>
                             </div>
 
-                        </form>
+                        </div>
                     </div>
+                    <!--end col-md-9-->
                 </div>
-
             </div>
-    </div>
 
-</div>
-
-
-@include('layouts.subfooter')
-@endforeach
-<div class="copyright">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                All right reserved. Belong to Group 10 - LTU12A
-            </div>
         </div>
     </div>
 </div>
+<!-- END PAGE BASE CONTENT -->
 
-
-<script type="text/javascript" src="{{asset('/js/bottstrap.js')}}"></script>
-<script type="text/javascript" src="{{asset('/js/representation_profile.js')}}"></script>
+@endsection @section('extra-js')
+<script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
 <script>
-    function managementteachertab(evt, cityName) {
-        // Declare all variables
-        var i, tabcontent, tablinks;
+    var myDropzone = new Dropzone("#my-dropzone", {
+        url: "/dropzone",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
 
-        // Get all elements with class="tabcontent" and hide them
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
+        maxFilesize: 6,
+
+
+    });
+</script>
+
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
+    });
 
-        // Get all elements with class="tablinks" and remove the class "active"
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
+    function update(company_id) {
+        document.getElementById("edit_information").innerHTML = "Editing...";
+        $.ajax({
 
-        // Show the current tab, and add an "active" class to the button that opened the tab
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
+            url: "/company/representation/"+company_id,
+            type: 'post',
+            data: {
+
+                'first_name': document.getElementById('first_name').value,
+                'last_name': document.getElementById('last_name').value,
+                'email': document.getElementById('email').value,
+                'phone_number': document.getElementById('phone_number').value,
+                'address': document.getElementById('address').value,
+                'position': document.getElementById('position').value,
+                'information': document.getElementById('information').value,
+
+
+            },
+            success: function (data) {
+
+                if ($.isEmptyObject(data.error)) {
+                    document.getElementById("edit_information").innerHTML = "Edited";
+                    alert('Information Edited');
+                    window.location = '/student/profile';
+                } else {
+                    document.getElementById("edit_information").innerHTML = "Edit";
+                    printErrorMsg(data.error);
+                }
+            }
+
+        });
+
+
     }
 </script>
-</body>
-</html>
+@endsection
