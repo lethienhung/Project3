@@ -10,10 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-    
-
-Route::get('/insertadmin','UserController@insertadmin');
-Route::get('storage/{filename}', 'InstructorProgressController@get');
 
 Route::get('/', function () {
     return view('homepage');
@@ -34,6 +30,7 @@ Route::get('logout', function () {
     Auth::logout();
     return redirect('login');
 });
+
 Route::get('/assignment/waiting', 'AssignmentController@show');
 
 Route::group(['middleware' => ['auth']], function () {
@@ -79,7 +76,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 Route::group(['middleware' => ['auth', 'company']], function () {
     
 
-    //Representation and Company profile 
+    //Representation and Company profile  - done
     Route::post('/company/representation/{representation_id}', 'RepresentationCompanyController@store');
     Route::get('/company/representation/{representation_id}', 'RepresentationCompanyController@index');
 

@@ -166,7 +166,7 @@
                             <div class="col-lg-3">
                                 <div class="blog-single-sidebar bordered blog-container">
                                     <div class="blog-single-sidebar-search" id="aspiration">
-                                    @if(Auth::user()->role="student" && $stdAssigned == 0 && $countNumberAspiration < 3)
+                                    @if(Auth::user()->role == "student" && $stdAssigned == 0 && $countNumberAspiration < 3)
                                         <a class="btn btn-success" @click="sendCv()" :disabled="show">Send CV</a>
                                     @endif
                                     </div>
