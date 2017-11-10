@@ -48,6 +48,16 @@ class LecturerController extends Controller
             'updated_at' => date('Y-m-d H-m-s')
 
         ]);
+        $id = Auth::user()->user_id;
+        DB::table('lecturer')->where('lecturer_id', $id)->update([
+            'lecturer_id' => Auth::user()->user_id,
+            'first_name' => request('first_name'),
+            'last_name' => '',
+            'email' => request('email'),
+            'phone_number' => request('phone_number'),
+            'updated_at' => date('Y-m-d H-m-s')
+
+        ]);
         return redirect()->back();
     }
 

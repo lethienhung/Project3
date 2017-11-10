@@ -35,13 +35,14 @@ class ReportController extends Controller
         $contents->put($fileName, file_get_contents($file->getRealPath()));
 
     }
+
     public function submitReport(Request $request)
     {
-        if($request->ajax()){
-            DB::table('report')->where('student_id',Auth::user()->user_id)->update([
-                'link'=> 'storage/'.$request->report,
-                'filename'=> $request->report,
-                'status'=>"Submitted"
+        if ($request->ajax()) {
+            DB::table('report')->where('student_id', Auth::user()->user_id)->update([
+                'link' => 'storage/' . $request->report,
+                'filename' => $request->report,
+                'status' => "Submitted"
             ]);
         }
 

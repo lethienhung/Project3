@@ -13,15 +13,15 @@ class CompanyAssignController extends Controller
     public function index()
     {
         $company_id = Auth::user()->user_id;
-        return DB::table('assignment')->where('assignment.representation_id',$company_id)
-        ->join('topic','assignment.representation_id','=','topic.representation_id')
-        ->groupBy('assignment.student_id')->get();
+        return DB::table('assignment')->where('assignment.representation_id', $company_id)
+            ->join('topic', 'assignment.representation_id', '=', 'topic.representation_id')
+            ->groupBy('assignment.student_id')->get();
     }
 
 
     public function create()
     {
-        
+
     }
 
     /**
@@ -30,7 +30,7 @@ class CompanyAssignController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function pickStudent(Request $request,$student_id)
+    public function pickStudent(Request $request, $student_id)
     {
         if ($request->ajax()) {
             /* Get Company ID */
@@ -53,8 +53,8 @@ class CompanyAssignController extends Controller
 
     public function show()
     {
-  
-      
+
+
     }
 
     /**
@@ -75,21 +75,24 @@ class CompanyAssignController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$student_id)
+    public function update(Request $request, $student_id)
     {
-    
+
         DB::table('assignment')->where('student_id', '=', $student_id)->update(['company_confirm' => "Approved"]);
         /* Declare variables */
+        DB::table('evaluation')->insert([
+            'student_id' => $student_id
+        ]);
         $id = Auth::user()->user_id;
-        $instructor = DB::table('instructor_company')->where('company_id',$id)->first();
+        $instructor = DB::table('instructor_company')->where('company_id', $id)->first();
         DB::table('student_instructor_company')
             ->insert([
                 'instructor_id' => $instructor->instructor_id,
                 'student_id' => $student_id
             ]);
-        DB::table('topic')->where('topic_id', '=', $topic_id)->decrement('quantity',1);
+        DB::table('topic')->where('topic_id', '=', $request->topic_id)->decrement('quantity', 1);
 
-        
+
     }
 
     /**
@@ -100,9 +103,9 @@ class CompanyAssignController extends Controller
      */
     public function destroy(Request $request)
     {
-        
-            DB::table('assignment')->where('student_id', $request->student_id)->update(['status' => "Declined"]);
-        
+
+        DB::table('assignment')->where('student_id', $request->student_id)->update(['status' => "Declined"]);
+
     }
 
 }

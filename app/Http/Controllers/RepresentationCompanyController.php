@@ -13,22 +13,14 @@ class RepresentationCompanyController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-
     }
 
-    public function index($represntationId)
+    public function index($repId)
     {
+        $company = DB::table('company')->where('company_id', $repId)->first();
+        $representation = DB::table('representation_company')->where('representation_id', $repId)->first();
+        return view('company.representation_profile', compact('company', 'representation'));
 
-        return view('company/representation_profile')
-            ->with('representation_id', RepresentationCompany::where('representation_id', '=', $represntationId)->get())
-            ->with('company', DB::table('representation_company')
-                ->join('company', 'representation_company.company_id', '=', 'company.company_id')
-                ->where('representation_company.representation_id', '=', $represntationId)->get())
-            ->with('topic', DB::table('representation_company')
-                ->join('topic', 'representation_company.representation_id', '=', 'topic.representation_id')
-                ->where('representation_company.representation_id', '=', $represntationId)->get())
-            ->with('topic_info', DB::table('topic')
-                ->where('topic.representation_id', '=', $represntationId)->get());
 
     }
 
@@ -52,16 +44,24 @@ class RepresentationCompanyController extends Controller
     public function store(Request $request)
     {
         $id = Auth::user()->user_id;
-        DB::table('representation_company')->where('representation_id', $id)->update([
-            'representation_id' => Auth::user()->user_id,
-            'first_name' => request('first_name'),
-            'last_name' => '',
-            'email' => request('email'),
-            'phone_number' => request('phone_number'),
-            'position' => request('position'),
-            'updated_at' => date('Y-m-d H-m-s')
+        if ($request->ajax()) {
+            DB::table('representation_company')->where('representation_id', $id)->update([
+                'representation_id' => Auth::user()->user_id,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'phone_number' => $request->phone_number,
+                'position' => $request->position,
+                'updated_at' => date('Y-m-d H-m-s')
 
-        ]);
+            ]);
+
+            DB::table('company')->where('company_id', $id)->update([
+                'company_name' => $request->company_name,
+                'information' => $request->information,
+                'address' => $request->address
+            ]);
+        }
         return redirect()->back();
     }
 

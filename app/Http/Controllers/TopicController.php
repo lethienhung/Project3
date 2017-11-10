@@ -25,13 +25,13 @@ class TopicController extends Controller
     public function index($topicId)
     {
         $student_id = Auth::user()->user_id;
-        $stdInTopic = DB::table('aspiration')->where('student_id',$student_id)->pluck('topic_id');
-        $countNumberAspiration = DB::table('aspiration')->where('student_id',$student_id)->count();
-        $stdAssigned = DB::table('assignment')->where('student_id',$student_id)->count();
+        $stdInTopic = DB::table('aspiration')->where('student_id', $student_id)->pluck('topic_id');
+        $countNumberAspiration = DB::table('aspiration')->where('student_id', $student_id)->count();
+        $stdAssigned = DB::table('assignment')->where('student_id', $student_id)->count();
         $company_id = DB::table('representation_company')->join('topic', 'representation_company.representation_id', '=', 'topic.representation_id')
             ->where('topic.topic_id', '=', $topicId)->pluck('company_id');
-        $other_topic = DB::table('topic')->where('representation_id','=',$company_id)->take(6)->get();
-        return view('topic.topic_detail',compact('other_topic','stdInTopic','countNumberAspiration','stdAssigned'))->with('topic_id', Topic::where('topic_id', '=', $topicId)->first())
+        $other_topic = DB::table('topic')->where('representation_id', '=', $company_id)->take(6)->get();
+        return view('topic.topic_detail', compact('other_topic', 'stdInTopic', 'countNumberAspiration', 'stdAssigned'))->with('topic_id', Topic::where('topic_id', '=', $topicId)->first())
             ->with('company', DB::table('company')
                 ->join('representation_company', 'representation_company.company_id', '=', 'company.company_id')
                 ->where('representation_company.company_id', '=', $company_id)->first())
@@ -47,7 +47,7 @@ class TopicController extends Controller
 
     public function create(RepresentationCompany $rep)
     {
-        
+
     }
 
     public function store(Request $request)
@@ -55,12 +55,12 @@ class TopicController extends Controller
 
         $skills = array();
         $level = array();
-        array_push($skills,$request->skill1);
-        array_push($skills,$request->skill2);
-        array_push($skills,$request->skill3);
-        array_push($level,$request->level1);
-        array_push($level,$request->level2);
-        array_push($level,$request->level3);
+        array_push($skills, $request->skill1);
+        array_push($skills, $request->skill2);
+        array_push($skills, $request->skill3);
+        array_push($level, $request->level1);
+        array_push($level, $request->level2);
+        array_push($level, $request->level3);
 
         $now = Carbon::now();
         $secretKey = $now . $request->email;
@@ -69,10 +69,10 @@ class TopicController extends Controller
         $topicId = strtoupper(substr($hashTopicId, 0, 6));
 
         DB::table('topic')->insert([
-            'topic_id'=> $topicId,
+            'topic_id' => $topicId,
             'title' => $request->title,
             'email' => $request->email,
-            'documentation' =>$request->documentation,
+            'documentation' => $request->documentation,
             'quantity' => $request->quantity,
             'phone_number' => $request->phone_number,
             'position' => $request->position,
@@ -85,24 +85,24 @@ class TopicController extends Controller
             'created_at' => $now
         ]);
 
-    
-        foreach($skills as $sk){
+
+        foreach ($skills as $sk) {
             $lv1 = $level[0];
             DB::table('topic_skills')->insert([
                 'topic_id' => $topicId,
                 'skills_name' => $sk,
-                'level_name'=> 'Advanced'
+                'level_name' => 'Advanced'
             ]);
-            DB::table('topic_skills')->where('topic_id',$topicId)->where('skills_name', $sk)->update([
-                'level_name'=> $lv1
-                
+            DB::table('topic_skills')->where('topic_id', $topicId)->where('skills_name', $sk)->update([
+                'level_name' => $lv1
+
             ]);
             array_splice($level, 0, 1);
             unset($lv1);
         }
 
         DB::table('topic_field')->insert([
-            'field_name' => $request->field_name,
+            'field_name' => $request->field,
             'topic_id' => $topicId,
             'created_at' => $now
         ]);
