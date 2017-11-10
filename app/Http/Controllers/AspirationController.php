@@ -42,11 +42,22 @@ class AspirationController extends Controller
      */
     public function store(Request $request)
     {
+        $company_id = DB::table('topic')->where('topic_id', $request->topic_id)->first();
         DB::table('aspiration')->insert([
             'student_id' => Auth::user()->user_id,
-            'company_name' => $request->company_name
+            'topic_id' => $request->topic_id,
+            'company_id' => $company_id->representation_id
         ]);
-        return redirect('/student/profile');
+        DB::table('assignment')->insert([
+            'student_id' => Auth::user()->user_id,
+            'intern_management_teacher_id' => '',
+            'company_id' => $company_id->representation_id,
+            'topic_id' => $request->topic_id,
+            'representation_id' => $company_id->representation_id,
+            'company_confirm' => 'Pending',
+            'status' => 'Pending'
+        ]);
+        return redirect()->back();
     }
 
     /**

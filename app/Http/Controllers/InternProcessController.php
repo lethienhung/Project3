@@ -41,7 +41,7 @@ class InternProcessController extends Controller
     public function store(Request $request, Students $student)
     {
         $id = $students->retrieveStudentId();
-        
+
         $file = $request->file('file'); //access dropzone files
         $contents = Storage::disk('public');
         $new_name = $file->getClientOriginalName();
@@ -101,22 +101,22 @@ class InternProcessController extends Controller
         $endDateFeedback = $endDateCarbon->addWeeks(200);
         /* End Intern Process part */
         /* Begin Outline part*/
-        $outline = DB::table('outline_work')->where('student_id','=',$id)->groupBy('week')->get();
-        $allWeek = DB::table('outline_work')->where('student_id','=',$id)->groupBy('week')->pluck('week');
+        $outline = DB::table('outline_work')->where('student_id', '=', $id)->groupBy('week')->get();
+        $allWeek = DB::table('outline_work')->where('student_id', '=', $id)->groupBy('week')->pluck('week');
         $countWorking = DB::table('outline_work')->select(DB::raw('COUNT(work) as working'))
-                        ->where('student_id',$id)->where('status','=','Working')->first();
+            ->where('student_id', $id)->where('status', '=', 'Working')->first();
         $countWorked = DB::table('outline_work')->select(DB::raw('COUNT(work) as done'))
-                        ->where('student_id',$id)->where('status','=','Done')->first();
+            ->where('student_id', $id)->where('status', '=', 'Done')->first();
         /** End Outline part */
         /** Begin Marking Part */
-        
+
         $stdMark = DB::table('mark')->where('student_id', $id)->first();
-        
+
         /**End Marking Part */
-        return view('student.student_intern_process', 
-        compact('student', 'instructor', 'topic', 'company', 
-                'evaluation', 'endDateFeedback','outline',
-                'countWorking','countWorked','stdMark'));
+        return view('student.student_intern_process',
+            compact('student', 'instructor', 'topic', 'company',
+                'evaluation', 'endDateFeedback', 'outline',
+                'countWorking', 'countWorked', 'stdMark'));
 
     }
 
@@ -140,7 +140,7 @@ class InternProcessController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
     }
 
     /**

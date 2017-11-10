@@ -14,13 +14,17 @@ new Vue({
                 this.list = response.data;
             });
         },
-        approve(student_id) {
-            axios.post("/company/assign/approve/" + student_id).then(response => {
+        approve(student_id,topic_id) {
+            axios.post("/company/assign/approve/" + student_id,{
+                topic_id
+            }).then(response => {
                 alert("Done Approved");
             });
         },
-        decline(student_id) {
-            axios.post("/company/assign/decline" + student_id).then(response => {
+        decline(student_id,topic_id) {
+            axios.post("/company/assign/decline" + student_id,{
+                topic_id
+            }).then(response => {
                 alert("Done Decline");
             });
         },

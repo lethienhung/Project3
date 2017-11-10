@@ -17,10 +17,10 @@ class RepresentationCompanyController extends Controller
 
     public function index($repId)
     {
-        $company = DB::table('company')->where('company_id',$repId)->first();
-        $representation = DB::table('representation_company')->where('representation_id',$repId)->first();
-        return view('company.representation_profile',compact('company','representation'));
-            
+        $company = DB::table('company')->where('company_id', $repId)->first();
+        $representation = DB::table('representation_company')->where('representation_id', $repId)->first();
+        return view('company.representation_profile', compact('company', 'representation'));
+
 
     }
 
@@ -44,7 +44,7 @@ class RepresentationCompanyController extends Controller
     public function store(Request $request)
     {
         $id = Auth::user()->user_id;
-        if($request->ajax()){
+        if ($request->ajax()) {
             DB::table('representation_company')->where('representation_id', $id)->update([
                 'representation_id' => Auth::user()->user_id,
                 'first_name' => $request->first_name,
@@ -56,9 +56,9 @@ class RepresentationCompanyController extends Controller
 
             ]);
 
-            DB::table('company')->where('company_id',$id)->update([
-                'company_name'=> $request->company_name,
-                'information'=> $request->information,
+            DB::table('company')->where('company_id', $id)->update([
+                'company_name' => $request->company_name,
+                'information' => $request->information,
                 'address' => $request->address
             ]);
         }

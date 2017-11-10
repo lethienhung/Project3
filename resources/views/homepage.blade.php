@@ -51,8 +51,8 @@
                         @if(Auth::guest())
                             <li>
 
-                                <button class="btn btn-success" style="background: lightblue" 
-                                   onclick="document.getElementById('idlogin').style.display='block'">
+                                <button class="btn btn-success" style="background: lightblue"
+                                        onclick="document.getElementById('idlogin').style.display='block'">
                                     FOR ADMIN
                                 </button>
 
