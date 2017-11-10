@@ -72,9 +72,11 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     //grade
     Route::get('/admin/grade', 'UserController@grade');
-    //Create User
+
+    //Create User - Done
     Route::get('/admin/users/create', 'UserController@create');
     Route::post('/admin/users/create', 'UserController@store');
+    
     //
     Route::get('/notice', 'NoticeEmailController@create');
     Route::get('/failed/test', 'FailedController@destroy');
@@ -159,7 +161,7 @@ Route::group(['middleware' => ['auth', 'manager']], function () {
     /* Assign Student */
     Route::get('/assign', 'AssignmentController@store');
 
-    //Periods
+    //Periods - Done
     Route::get('periods', 'PeriodController@index');
     Route::get('period/{period_id}', 'PeriodController@getPeriod');
     Route::get('periods/create', 'PeriodController@create');
