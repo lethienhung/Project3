@@ -19,11 +19,11 @@ class MatchingController extends Controller
             ->join('company', 'assignment.company_id', '=', 'company.company_id')
             ->join('topic', 'assignment.topic_id', '=', 'topic.topic_id')
             ->select('assignment.student_id', 'assignment.company_id', 'assignment.topic_id', 'students.first_name', 'students.last_name', 'company.company_name', 'topic.title', 'assignment.company_confirm', 'assignment.status')
-            ->paginate(10);
+            ->get();
         $matchingFull = $matching->matchingFull();
         $matchingField = $matching->matchingField();
         $matchingSkillLevel = $matching->matchingSkillLevel();
-        return view('manager.managementteacherparser',compact('matchingFull','matchingField','matchingSkillLevel', 'matches'));
+        return view('manager.match',compact('matchingFull','matchingField','matchingSkillLevel', 'matches'));
     }
 
     public function store(Request $request){

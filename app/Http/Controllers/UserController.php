@@ -24,7 +24,7 @@ class UserController extends Controller
     public function index()
     {
        
-        $users = DB::table('users')->where('user_id', '!=', 'admin')->paginate(8);
+        $users = DB::table('users')->get();
         return view('admin.newusers')->with('users', $users);
     }
 
@@ -47,9 +47,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = new User();
-        $user->email = $request->msuser . "@gmail.com";
-        $user->user_id = $request->msuser;
-        $user->password = bcrypt($request->msuser);
+        $user->email = $request->email;
+        $user->user_id = $request->number;
+        $user->password = bcrypt($request->number);
         $user->role = $request->role;
         $user->name = $request->name;
 
@@ -57,41 +57,44 @@ class UserController extends Controller
 
         if ($request->role == 'student') {
             $student = new Students();
-            $student->email = $request->msuser . "@gmail.com";
-            $student->student_id = $request->msuser;
+            $student->first_name = $request->name;
+            $student->email = $request->email;
+            $student->student_id = $request->number;
 
             $student->save();
 
             $studentCv = new StudentCv();
-            $studentCv->email = $request->msuser . "@gmail.com";
-            $studentCv->student_id = $request->msuser;
+            $studentCv->email = $request->email;
+            $studentCv->student_id = $request->number;
             $studentCv->save();
 
             $report = new Report();
-            $report->student_id = $request->msuser;
-            $report->status = "Not submit yet";
+            $report->student_id = $request->number;
+            $report->status = "Đang chờ";
             $report->save();
 
             $mark = new Mark();
-            $mark->student_id = $request->msuser;
+            $mark->student_id = $request->number;
             $mark->save();
 
             $evaluation = new Evaluation();
-            $evaluation->student_id = $request->msuser;
+            $evaluation->student_id = $request->number;
             $evaluation->save();
         }
 
         if ($request->role == "lecturer") {
             $lecturer = new Lecturer();
-            $lecturer->email = $request->msuser . "@gmail.com";
-            $lecturer->lecturer_id = $request->msuser;
+            $lecturer->first_name = $request->name;
+            $lecturer->email = $request->email;
+            $lecturer->lecturer_id = $request->number;
             $lecturer->save();
         }
 
         if ($request->role == "manager") {
             $manager = new InternManagementTeacher();
-            $manager->email = $request->msuser . "@gmail.com";
-            $manager->intern_management_teacher_id = $request->msuser;
+            $manager->first_name = $request->name;
+            $manager->email = $request->email;
+            $manager->intern_management_teacher_id = $request->number;
             $manager->save();
         }
 

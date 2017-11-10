@@ -1,3 +1,35 @@
+@if(Auth::guest())
+    <script type="text/javascript">
+        window.location = "{{ url('/login') }}";
+    </script>
+@endif
+@if(!Auth::guest())
+    @if(Auth::user()->role == 'admin')
+        <script type="text/javascript">
+            window.location = "{{ url('/admin') }}";
+        </script>
+    @endif
+    @if(Auth::user()->role == 'lecturer')
+        <script type="text/javascript">
+            window.location = "{{ url('/lecturer') }}";
+        </script>
+    @endif
+    @if(Auth::user()->role == 'manager')
+        <script type="text/javascript">
+            window.location = "{{ url('/manager') }}";
+        </script>
+    @endif
+    @if(Auth::user()->role == 'student')
+        <script type="text/javascript">
+            window.location = "{{ url('/student') }}";
+        </script>
+    @endif
+    @if(Auth::user()->role == 'instructor')
+    @endif
+    @if(Auth::user()->role == 'company')
+    @endif
+@endif
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

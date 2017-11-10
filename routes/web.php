@@ -34,7 +34,6 @@ Route::get('logout', function () {
     Auth::logout();
     return redirect('login');
 });
-Route::get('/assignment/waiting', 'AssignmentController@show');
 
 Route::group(['middleware' => ['auth']], function () {
     //Topic info, student cv - Done
@@ -52,10 +51,11 @@ Route::group(['middleware' => ['auth']], function () {
 //Routes only accessable by admin
 Route::group(['middleware' => ['auth', 'admin']], function () {
 
-    Route::get('/admin/dashboard', 'AdminController@indexDashboard');
+    Route::get('/admin', 'AdminController@indexDashboard');
     Route::get('/admin/post', 'LogsController@index');
     //Information about user
     Route::get('/admin/users', 'UserController@index');
+    Route::post('/admin/users', 'UserController@store');
 
     //points
     Route::get('points', function(){
@@ -112,6 +112,10 @@ Route::group(['middleware' => ['auth', 'company']], function () {
 //Routes only accessable by student
 Route::group(['middleware' => ['auth', 'student']], function () {
 
+    Route::get('/student', function(){
+        return view('student.studentdashboard');
+    });
+
     //Student Profile -done
     Route::get('student/profile/', 'StudentsController@index');
     Route::get('student/create/profile', 'StudentsController@create');
@@ -140,8 +144,12 @@ Route::group(['middleware' => ['auth', 'student']], function () {
 
 });
 
+//Routes only accessable by manager
 Route::group(['middleware' => ['auth', 'manager']], function () {
 
+    Route::get('manager', function(){
+        return view('manager.managerdashboard');
+    });
 
     /* Matching */
     Route::get('/match', 'MatchingController@matchingFull');
@@ -153,21 +161,18 @@ Route::group(['middleware' => ['auth', 'manager']], function () {
 
     //Periods
     Route::get('periods', 'PeriodController@index');
+    Route::get('period/{period_id}', 'PeriodController@getPeriod');
     Route::get('periods/create', 'PeriodController@create');
     Route::post('periods/create', 'PeriodController@store');
-    Route::get('manager/period/{period_id}/add/{student_id}', 'PeriodController@addStudentToPeriod');
-    Route::get('manager/period/{period_id}/remove/{student_id}', 'PeriodController@removeStudentFromPeriod');
-    Route::get('period/{period_id}', 'PeriodController@getPeriod');
+    Route::post('period/add', 'PeriodController@addStudentToPeriod');
 
     //Profile
     Route::get('/manager/profile', 'InternManagementTeacherController@index');
 
-    //topic approved/decline
+    //topic approved/decline - Done
     Route::get('manager/topics', 'TopicCensorController@create');
     Route::get('manager/topics/approve/', 'TopicCensorController@update');
     Route::get('manager/topics/decline/', 'TopicCensorController@destroy');
-    //
-
 
 });
 
@@ -184,10 +189,8 @@ Route::group(['middleware' => ['auth', 'lecturer']], function () {
     //Route::get('lecturer/intern', 'MarkingController@create');
     Route::post('lecturer/intern', 'MarkingController@store');
 
-    //Decide approve/decline topics
-
-    Route::get('/lecturer/dashboard', function(){
-        return view('lecturer.dashboard');
+    Route::get('/lecturer', function(){
+        return view('lecturer.lecturerdashboard');
     });
 
     Route::get('studentlist', function(){

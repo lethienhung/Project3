@@ -17,10 +17,10 @@ class TopicCensorController extends Controller
     public function create()
     {
         //
-        $topics = DB::table('topic')->paginate(5);
+        $topics = DB::table('topic')->get();
         $topic = Topic::where('status', '=', 'Pending')->get();
         $approved = Topic::where('status', '=', 'Approved')->get();
-        return view('manager.topicrequest', compact('topics', 'topic', 'approved'));
+        return view('manager.topics', compact('topics', 'topic', 'approved'));
     }
 
     public function update(Request $request)
