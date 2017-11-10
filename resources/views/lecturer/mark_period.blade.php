@@ -259,23 +259,17 @@
                                 </div>
                                 <div class="portlet-body">
                                     <div>
-                                        <h4 class="profile-desc-title"><i class="fa fa-user-md"></i> Trình độ kỹ thuật</h4>
+                                        <h4 class="profile-desc-title"><i class="fa fa-user-md"></i> Điểm tổng kết cuối kỳ</h4>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <span class="profile-desc-text"> Khả năng nắm bắt các kỹ thuật mới</span></br>
-                                                <span class="profile-desc-text"> Mức độ làm chủ kỹ thuật, công nghệ sau khi đã đưọc hướng dẫn </span></br>
-                                                <span class="profile-desc-text"> Khả năng phân tích </span></br>
-                                                <span class="profile-desc-text"> Phương pháp luận – cách thức tổ chức công việc </span></br>
-                                                <span class="profile-desc-text"> Óc sáng tạo </span></br>
-                                                <span class="profile-desc-text"> Trình độ ngoại ngữ phục vụ cho công việc </span>
+                                                <span class="profile-desc-text"> Điểm cuối kỳ:</span></br>
+                                                <span class="profile-desc-text"> Điểm cuối kỳ sau khi sửa: </span></br>
+                                                <span class="profile-desc-text"> Được sửa bởi </span></br>
+                                                <span class="profile-desc-text"> Lý do sửa </span></br>
+                                                <span class="profile-desc-text"> Thời gian sửa: </span></br>
                                             </div>
                                             <div class="col-md-6">
                                                 <span class="profile-desc-text"> A </span></br>
-                                                <span class="profile-desc-text"> A </span></br>
-                                                <span class="profile-desc-text"> A </span></br>
-                                                <span class="profile-desc-text"> A </span></br>
-                                                <span class="profile-desc-text"> A </span></br>
-                                                <span class="profile-desc-text"> A </span>
                                             </div>
                                         </div>
                                     </div>

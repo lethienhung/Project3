@@ -70,7 +70,7 @@
                                                 <td> Nilson </td>
                                                 <td> alexnilson@gmail.com </td>
                                                 <td> 0123456789 </td>
-                                                <td> <a class="btn btn-xs btn-success" href="">Xem <i class="fa fa-search"></i></a> </td>
+                                                <td> <a class="btn btn-xs btn-success" href="/points/student">Xem <i class="fa fa-search"></i></a> </td>
                                             </tr>
                                             <tr>
                                                 <td> 01444567 </td>
@@ -78,7 +78,7 @@
                                                 <td> Wong </td>
                                                 <td> lisawong@gmail.com </td>
                                                 <td> 0123456789 </td>
-                                                <td> <a class="btn btn-xs btn-success" href="">Xem <i class="fa fa-search"></i></a> </td> </td>
+                                                <td> <a class="btn btn-xs btn-success" href="/points/student">Xem <i class="fa fa-search"></i></a> </td> </td>
                                             </tr>
                                             <tr>
                                                 <td> 45670123 </td>

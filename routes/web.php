@@ -37,7 +37,6 @@ Route::get('logout', function () {
     Auth::logout();
     return redirect('login');
 });
-Route::get('/assignment/waiting', 'AssignmentController@show');
 
 /** All users */
 Route::group(['middleware' => ['auth']], function () {
@@ -55,14 +54,23 @@ Route::group(['middleware' => ['auth']], function () {
 /** Admin */
 Route::group(['middleware' => ['auth', 'admin']], function () {
 
-    Route::get('/admin/dashboard', 'AdminController@indexDashboard');
+    Route::get('/admin', 'AdminController@indexDashboard');
     Route::get('/admin/post', 'LogsController@index');
     //Information about user
     Route::get('/admin/users', 'UserController@index');
+    Route::post('/admin/users', 'UserController@store');
 
     //points
     Route::get('points', function () {
         return view('admin.point_manage');
+    });
+
+    Route::get('points/student', function(){
+        return view('admin.point');
+    });
+
+    Route::get('points/student/mark', function(){
+        return view('lecturer.mark_period');
     });
 
     //grade
@@ -131,6 +139,10 @@ Route::group(['middleware' => ['auth', 'instructor']], function () {
 /** Student */
 Route::group(['middleware' => ['auth', 'student']], function () {
 
+    Route::get('/student', function(){
+        return view('student.studentdashboard');
+    });
+
     //Student Profile -done
     Route::get('student/profile/{id}', 'StudentsController@index');
     Route::get('student/create/profile', 'StudentsController@create');
@@ -159,9 +171,14 @@ Route::group(['middleware' => ['auth', 'student']], function () {
 
 });
 
+
 /** Manager */
+
 Route::group(['middleware' => ['auth', 'manager']], function () {
 
+    Route::get('manager', function(){
+        return view('manager.managerdashboard');
+    });
 
     /* Matching */
     Route::get('/match', 'MatchingController@matchingFull');
@@ -173,21 +190,18 @@ Route::group(['middleware' => ['auth', 'manager']], function () {
 
     //Periods
     Route::get('periods', 'PeriodController@index');
+    Route::get('period/{period_id}', 'PeriodController@getPeriod');
     Route::get('periods/create', 'PeriodController@create');
     Route::post('periods/create', 'PeriodController@store');
-    Route::get('manager/period/{period_id}/add/{student_id}', 'PeriodController@addStudentToPeriod');
-    Route::get('manager/period/{period_id}/remove/{student_id}', 'PeriodController@removeStudentFromPeriod');
-    Route::get('period/{period_id}', 'PeriodController@getPeriod');
+    Route::post('period/add', 'PeriodController@addStudentToPeriod');
 
     //Profile
     Route::get('/manager/profile', 'InternManagementTeacherController@index');
 
-    //topic approved/decline
+    //topic approved/decline - Done
     Route::get('manager/topics', 'TopicCensorController@create');
     Route::get('manager/topics/approve/', 'TopicCensorController@update');
     Route::get('manager/topics/decline/', 'TopicCensorController@destroy');
-    //
-
 
 });
 
@@ -203,7 +217,9 @@ Route::group(['middleware' => ['auth', 'lecturer']], function () {
     //Route::get('lecturer/intern', 'MarkingController@create');
     Route::post('lecturer/intern', 'MarkingController@store');
 
-    //Decide approve/decline topics
+    Route::get('/lecturer', function(){
+        return view('lecturer.lecturerdashboard');
+    });
 
     Route::get('studentlist', function () {
         return view('lecturer.student_list');
