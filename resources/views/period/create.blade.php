@@ -1,8 +1,8 @@
 @extends('layouts.mainlayout')
 
-@section('title', 'Create new topic')
+@section('title', 'Tạo thêm đợt thực tập')
 
-@section('pageplugins1')
+@section('page-level-css-plugins')
 	@parent
 	<link href="/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -67,24 +67,25 @@
                                 </div>
                                 <div class="portlet-body">
                                     <!-- BEGIN FORM-->
-                                    <form action="#" id="form_sample_3" class="form-horizontal">
+                                    <form action="/periods/create" method="post" id="form_3" class="form-horizontal">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <div class="form-body">
                                             <div class="alert alert-danger display-hide">
-                                                <button class="close" data-close="alert"></button> Đã xảy ra một vài lỗi, vui lòng kiểm tra lại thông tin đã nhập. </div>
+                                                <button class="close" data-close="alert"></button> Bạn đã nhập không đúng hoặc không đủ thông tin. Vui lòng kiểm tra lại. </div>
                                             <div class="alert alert-success display-hide">
                                                 <button class="close" data-close="alert"></button> Your form validation is successful! </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3">Tên đợt
+                                                <label class="control-label col-md-3">Tên đợt thực tập
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-4">
                                                     <input type="text" name="name" data-required="1" class="form-control" /> </div>
-                                            </div>                              
+                                            </div>                                            
                                             <div class="form-group">
                                                 <label class="control-label col-md-3">Ngày bắt đầu</label>
                                                 <div class="col-md-4">
                                                     <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
-                                                        <input type="text" class="form-control" readonly name="datepicker">
+                                                        <input type="text" class="form-control" readonly name="start_date">
                                                         <span class="input-group-btn">
                                                             <button class="btn default" type="button">
                                                                 <i class="fa fa-calendar"></i>
@@ -92,14 +93,14 @@
                                                         </span>
                                                     </div>
                                                     <!-- /input-group -->
-                                                    <span class="help-block"> select a date </span>
+                                                    <span class="help-block"> Hãy chọn một ngày </span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3">Ngày kết thúc</label>
+                                                <label class="control-label col-md-3">Ngày kết thúc </label>
                                                 <div class="col-md-4">
                                                     <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
-                                                        <input type="text" class="form-control" readonly name="datepicker">
+                                                        <input type="text" class="form-control" readonly name="end_date">
                                                         <span class="input-group-btn">
                                                             <button class="btn default" type="button">
                                                                 <i class="fa fa-calendar"></i>
@@ -107,21 +108,21 @@
                                                         </span>
                                                     </div>
                                                     <!-- /input-group -->
-                                                    <span class="help-block"> select a date </span>
+                                                    <span class="help-block"> Hãy chọn một ngày </span>
                                                 </div>
-                                            </div>                                            
+                                            </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-3">Ghi chú</label>
                                                 <div class="col-md-9">
                                                     <textarea name="markdown" data-provide="markdown" rows="10" data-error-container="#editor_error"></textarea>
                                                     <div id="editor_error"> </div>
                                                 </div>
-                                            </div>
+                                            </div>                                            
                                         </div>
                                         <div class="form-actions">
                                             <div class="row">
                                                 <div class="col-md-offset-3 col-md-9">
-                                                    <button type="submit" class="btn green">Submit</button>
+                                                    <button type="submit" class="btn green" onclick="create()">Submit</button>
                                                     <button type="button" class="btn default">Cancel</button>
                                                 </div>
                                             </div>
@@ -139,7 +140,7 @@
             </div>
 @endsection
 
-@section('pageplugins2')
+@section('page-level-js-plugins')
 	@parent
 	<script src="/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
     <script src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
@@ -152,7 +153,90 @@
     <script src="/assets/global/plugins/bootstrap-markdown/js/bootstrap-markdown.js" type="text/javascript"></script>
 @endsection
 
-@section('pagescript')
+@section('page-level-js')
 	@parent
 	<script src="/assets/pages/scripts/form-validation.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        function create() {
+            var form3 = $('#form_3');
+            var error3 = $('.alert-danger', form3);
+            var success3 = $('.alert-success', form3);
+
+            //IMPORTANT: update CKEDITOR textarea with actual content before submit
+            form3.on('submit', function() {
+                for(var instanceName in CKEDITOR.instances) {
+                    CKEDITOR.instances[instanceName].updateElement();
+                }
+            })
+
+            form3.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+                    name: {
+                        minlength: 2,
+                        required: true
+                    },
+                    start_date: {
+                        required: true
+                    },
+                    end_date: {
+                        required: true
+                    },
+                    markdown: {
+                        required: true
+                    }
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input typeW
+                    if (element.parent(".input-group").size() > 0) {
+                        error.insertAfter(element.parent(".input-group"));
+                    } else if (element.attr("data-error-container")) { 
+                        error.appendTo(element.attr("data-error-container"));
+                    } else {
+                        error.insertAfter(element); // for other inputs, just perform default behavior
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    success3.hide();
+                    error3.show();
+                    App.scrollTo(error3, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    success3.show();
+                    error3.hide();
+                    form[0].submit(); // submit the form
+                }
+
+            });
+
+            //initialize datepicker
+            $('.date-picker').datepicker({
+                rtl: App.isRTL(),
+                autoclose: true
+            });
+            $('.date-picker .form-control').change(function() {
+                form3.validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input 
+            });
+        }
+    </script>
 @endsection

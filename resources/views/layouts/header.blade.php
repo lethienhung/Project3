@@ -403,9 +403,9 @@
                             <!-- END USER LOGIN DROPDOWN -->
                             <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                             <li class="dropdown dropdown-extended quick-sidebar-toggler">
-                                <span class="sr-only">Toggle Quick Sidebar</span>
-                                <i class="icon-logout"></i>
+                                <i class="icon-logout" onclick="logout()"></i>
                             </li>
+                            
                             <!-- END QUICK SIDEBAR TOGGLER -->
                         </ul>
                     </div>
@@ -418,3 +418,8 @@
         <!-- END HEADER -->
         <!-- BEGIN HEADER & CONTENT DIVIDER -->
         <div class="clearfix"> </div>
+        <script type="text/javascript">
+            function logout(){
+                window.location = "{{ url('/logout') }}";
+            }
+        </script>
