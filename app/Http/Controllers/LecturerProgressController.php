@@ -21,7 +21,7 @@ class LecturerProgressController extends Controller
         $lecturer_id = Lecturer::where('lecturer_id', '=', $id)->get();
         $studentIds = DB::table('assignment')->paginate(2);
         $studentId = DB::table('assignment')->paginate(2);
-        return view('lecturer.lecturerprogress', compact('lecturer_id', 'studentId','studentIds'));
+        return view('lecturer.lecturerprogress', compact('lecturer_id', 'studentId', 'studentIds'));
 
     }
 
