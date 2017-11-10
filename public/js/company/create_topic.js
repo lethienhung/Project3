@@ -2,9 +2,9 @@ Vue.component("topic", {
     template: "#topic-create-template",
     data() {
         return {
-            list: [],
+            field: '',
             title: '',
-            email: '',
+            email: document.getElementById('useremail').value,
             documentation: '',
             quantity: '',
             phone_number: '',
@@ -44,7 +44,8 @@ Vue.component("topic", {
                 skill3: this.skill3,
                 level1: this.level1,
                 level2: this.level2,
-                level3: this.level3
+                level3: this.level3,
+                field: this.field
             }).then(response => {
                 alert('Topic have been created!');
             });

@@ -88,7 +88,7 @@
                                                 <i class="fa fa-cog"></i> {{$countWorking->working}}</div>
                                         </div>
                                     </div>
-                                    <a href="javascript:;">
+                                    <a href="/instructor/outline/{{$topic->topic_id}}">
                                         <div class="list-count pull-right red-mint">
                                             <i class="fa fa-plus"></i>
                                         </div>

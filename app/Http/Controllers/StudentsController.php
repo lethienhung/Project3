@@ -22,9 +22,9 @@ class StudentsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Students $student)
+    public function index(Students $student, $id)
     {
-        $id = $student->retrieveStudentId();
+
         $student = DB::table('students')->where('student_id', '=', $id)->first();
 
         return view('student.student_profile', compact('student'));
@@ -52,24 +52,24 @@ class StudentsController extends Controller
     {
         $id = Auth::user()->user_id;
 
-            if($request->ajax()){
-                DB::table('students')->where('student_id', $id)->update([
-                    'student_id' => Auth::user()->user_id,
-                    'first_name' => $request->first_name,
-                    'last_name' => $request->last_name,
-                    'email' => $request->email,
-                    'phone_number' => $request->phone_number,
-                    'about_me' => $request->about_me,
-                    'address' => $request->address,
-                    'class' => $request->class,
-                    'semester' => $request->semester,
-                    'date_of_birth' => $request->date_of_birth,
-                    'updated_at' => date('Y-m-d H-m-s')
+        if ($request->ajax()) {
+            DB::table('students')->where('student_id', $id)->update([
+                'student_id' => Auth::user()->user_id,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'phone_number' => $request->phone_number,
+                'about_me' => $request->about_me,
+                'address' => $request->address,
+                'class' => $request->class,
+                'semester' => $request->semester,
+                'date_of_birth' => $request->date_of_birth,
+                'updated_at' => date('Y-m-d H-m-s')
 
-                ]);
-            }
+            ]);
+        }
         //}
-        
+
         // return response()->json(['error' => $validator->errors()->all()]);
         return redirect()->back();
     }
