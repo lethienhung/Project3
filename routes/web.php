@@ -110,7 +110,7 @@ Route::group(['middleware' => ['auth', 'company']], function () {
 
 });
 
-/** Instructor - Done */
+/** Instructor - Done - CHECKED*/
 Route::group(['middleware' => ['auth', 'instructor']], function () {
 
     //Instructor outline management - Done
@@ -136,7 +136,7 @@ Route::group(['middleware' => ['auth', 'instructor']], function () {
 
 });
 
-/** Student */
+/** Student - DONE - CHECKED */
 Route::group(['middleware' => ['auth', 'student']], function () {
 
     Route::get('/student', function(){
@@ -189,6 +189,8 @@ Route::group(['middleware' => ['auth', 'manager']], function () {
     Route::get('/assign', 'AssignmentController@store');
 
     //Periods
+    Route::get('/fetch/student/{period_id}', 'PeriodController@fetchStudentNotInPeriods'); //fetch student not in period
+    Route::get('/get/student/{period_id}', 'PeriodController@fetchStudentInPeriods'); //fetch student has assign to a period
     Route::get('periods', 'PeriodController@index');
     Route::get('period/{period_id}', 'PeriodController@getPeriod');
     Route::get('periods/create', 'PeriodController@create');

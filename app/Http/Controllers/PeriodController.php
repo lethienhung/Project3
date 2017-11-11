@@ -39,6 +39,20 @@ class PeriodController extends Controller
         return redirect('periods');
     }
 
+    public function fetchStudentNotInPeriods($period_id)
+    {
+        $student_in_period = DB::table('periods_students')->where('period_id',$period_id)->pluck('student_id');
+       return DB::table('students')->whereNotIn('student_id',$student_in_period)->get();
+            
+    }
+
+    public function fetchStudentInPeriods($period_id)
+    {
+        $student_in_period = DB::table('periods_students')->where('period_id',$period_id)->pluck('student_id');
+        return DB::table('students')->whereIn('student_id',$student_in_period)->get();
+        
+    }
+
     public function getPeriod($period_id)
     {
 
@@ -62,11 +76,11 @@ class PeriodController extends Controller
 
     public function addStudentToPeriod(Request $request)
     {   
-        if ($request->ajax()){
+        
             DB::table('periods_students')->insert([
                 'period_id' => $request->period_id,
                 'student_id' => $request->student_id
             ]);
-        }
+        
     }
 }
