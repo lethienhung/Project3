@@ -45,9 +45,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/student/cv/{student_id}', 'StudentCvController@index');
     Route::get('/topic', 'ListTopicController@index');
     Route::get('/loadmore', 'ListTopicController@loadMore');
-    ////
-    Route::get('/search', 'SearchController@index');
+
+    // search
+    //Route::get('/search', 'SearchController@index');
     Route::post('/search/input', 'SearchController@checkInput');
+    Route::get('/search', function(){
+        return view('search.search');
+    });
 
 });
 
@@ -115,6 +119,9 @@ Route::group(['middleware' => ['auth', 'company']], function () {
 /** Instructor - Done */
 Route::group(['middleware' => ['auth', 'instructor']], function () {
 
+    //Dashboard
+    Route::get('/instructor', 'InstructorController@dashboard');
+
     //Instructor outline management - Done
     Route::get('/instructor/outline/{topicId}', 'OutlineController@createOutline');
     Route::post('/instructor/outline/store', 'OutlineController@store');
@@ -135,7 +142,10 @@ Route::group(['middleware' => ['auth', 'instructor']], function () {
     Route::post('/instructor/mark/{student_id}', 'MarkingController@storeInstructorMark');
     Route::post('/instructor/evaluate/{student_id}', 'MarkingController@storeInstructorEvaluation');
 
-
+    //Mark
+    Route::get('instructor/mark', function(){
+        return view('instructor.mark');
+    });
 });
 
 /** Student */

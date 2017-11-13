@@ -56,4 +56,8 @@ class InstructorController extends Controller
         return redirect()->back();
     }
 
+    public function dashboard(){
+        return view('instructor.instructordashboard');
+    }
+
 }
