@@ -81,7 +81,7 @@
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class=" icon-layers font-green"></i>
-                                    <span class="caption-subject font-green bold uppercase">Work Outline</span>
+                                    <span class="caption-subject font-green bold uppercase">Report </span>
                                     <div class="caption-desc font-grey-cascade"> Default list element style. Activate by
                                         adding
                                         <pre class="mt-code">.list-todo</pre>
@@ -143,21 +143,12 @@
                                                                                 <i class="fa fa-database"></i>
                                                                             </a>
                                                                         </div>
-                                                                        @if($work->status == 'Working')
-                                                                            <div class="task-status">
-                                                                                <a class="done" href="javascript:;">
-                                                                                    <i class="fa fa-check"></i>
-                                                                                </a>
-                                                                                <a class="pending" href="javascript:;">
-                                                                                    <i class="fa fa-close"></i>
-                                                                                </a>
-                                                                            </div>
-                                                                        @elseif($work->status=='Done')
+                                                                        
+                                                                        @if($work->status=='Done')
                                                                             <div class="task-status">
                                                                                 <a class="done">
                                                                                     <i class="fa fa-check"></i>
                                                                                 </a>
-
                                                                             </div>
                                                                         @elseif($work->status == 'Failed')
                                                                             <div class="task-status">
@@ -207,7 +198,7 @@
                 </div>
                 <!-- END PAGE BASE CONTENT -->
             </div>
-            <div class="tab-pane active" id="tab_1_2">
+            <div class="tab-pane" id="tab_1_2">
                 <div class="row">
                     <div class="col-md-12">
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->

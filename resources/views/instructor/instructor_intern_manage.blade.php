@@ -184,7 +184,8 @@
             </div>
             <!-- END PAGE BASE CONTENT -->
         </div>
-        <div class="tab-pane active" id="tab_1_2">
+
+        <div class="tab-pane" id="tab_1_2">
             <div class="row">
                 <div class="col-md-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -248,11 +249,8 @@
 
                     </div>
                     <!-- END EXAMPLE TABLE PORTLET-->
-
                 </div>
             </div>
-
-
             <hr>
             <div class="row">
                 <div class="col-md-12">
@@ -312,8 +310,6 @@
 
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>

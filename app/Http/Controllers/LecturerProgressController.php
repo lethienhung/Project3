@@ -16,13 +16,18 @@ class LecturerProgressController extends Controller
 
     public function index(Lecturer $lecturerId, InstructorCompany $instructorId)
     {
+        //$students = DB::table('assignment')->join('marking')
+        
+        return view('lecturer.student_list', compact('lecturer_id', 'studentId', 'studentIds'));
 
-        $id = $lecturerId->retrieveLecturerId();
-        $lecturer_id = Lecturer::where('lecturer_id', '=', $id)->get();
-        $studentIds = DB::table('assignment')->paginate(2);
-        $studentId = DB::table('assignment')->paginate(2);
-        return view('lecturer.lecturerprogress', compact('lecturer_id', 'studentId', 'studentIds'));
+    }
 
+    public function internPeriod($period_id)
+    {
+        # code...
+        $student_id = DB::table('periods_students')->where('period_id',$period_id)->pluck('student_id');
+        $studentInThisPeriod = DB::table('students')->whereIn('student_id',$student_id)->get();
+        return view('lecturer.student_list',compact('studentInThisPeriod'));
     }
 
     public function create()

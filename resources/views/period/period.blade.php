@@ -10,7 +10,7 @@
 
 @section('content')
 	@parent
-	<div class="page-content-wrapper">
+	<div class="page-content-wrapper" id="add-to-period">
                 <!-- BEGIN CONTENT BODY -->
                 <div class="page-content">
                     <!-- BEGIN PAGE HEAD-->
@@ -81,6 +81,7 @@
                                             <a href="#tab_1_2" data-toggle="tab"> Các sinh viên trong đợt thực tập này </a>
                                         </li>                                        
                                     </ul>
+                                    <input id="this_period" value="{{$period_id}}">
                                     <div class="tab-content">
                                         <div class="tab-pane fade active in" id="tab_1_1">
                                             <div class="portlet-body">
@@ -96,22 +97,23 @@
                                                             <th> Hành động</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
-                                                    @foreach($students as $student)
-                                                        <tr>
-                                                            <td> {{$student->student_id}} </td>
-                                                            <td> {{$student->last_name}} </td>
-                                                            <td> {{$student->first_name}}</td>
-                                                            <td> {{$student->date_of_birth}}</td>
-                                                            <td> {{$student->gender}}</td>
-                                                            <td> {{$student->email}}</td>
-                                                            <td class="text-center"> 
+                                                    <tbody>                                            
+                                                        
+                                                        <tr v-for="(student, index) in list">
+                                                            <td> @{{student.student_id}} </td>
+                                                            <td> @{{student.last_name}} </td>
+                                                            <td> @{{student.first_name}}</td>
+                                                            <td> @{{student.date_of_birth}}</td>
+                                                            <td> @{{student.gender}}</td>
+                                                            <td> @{{student.email}}</td>
+                                                             <td class="text-center"> 
                                                                 <button class="btn btn-xs btn-success"
-                                                                onclick="add('{{$period->id}}', '{{$student->student_id}}')">Thêm</button>
+                                                                @click="add(student.student_id, index)">Thêm</button>
                                                             </td>
                                                         </tr>
-                                                    @endforeach                                                        
+                                                                                                           
                                                     </tbody>
+                                                    
                                                 </table>
                                             </div>
                                         </div>
@@ -130,18 +132,18 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>                                            
-                                                        @foreach($studentsInPeriod as $student)
-                                                        <tr>
-                                                            <td> {{$student->student_id}} </td>
-                                                            <td> {{$student->last_name}} </td>
-                                                            <td> {{$student->first_name}}</td>
-                                                            <td> {{$student->date_of_birth}}</td>
-                                                            <td> {{$student->gender}}</td>
-                                                            <td> {{$student->email}}</td>
+                                                        
+                                                        <tr v-for="std in added">
+                                                            <td> @{{std.student_id}} </td>
+                                                            <td> @{{std.last_name}} </td>
+                                                            <td> @{{std.first_name}}</td>
+                                                            <td> @{{std.date_of_birth}}</td>
+                                                            <td> @{{std.gender}}</td>
+                                                            <td> @{{std.email}}</td>
                                                             <td class="text-center"> <span class="btn btn-xs btn-warning">Xem</span> 
                                                             </td>
                                                         </tr>
-                                                    @endforeach                                                        
+                                                                                                      
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -167,7 +169,10 @@
 @section('page-level-js')
 	@parent
 	<script src="/assets/pages/scripts/table-datatables-fixedheader.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.js"></script>
+    <script src="https://unpkg.com/vue@2.4.2"></script>
+    <script src="/js/manager/period.js"></script>
+    {{--  <script type="text/javascript">
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -195,5 +200,5 @@
                 console.log("complete");
             });
         }
-    </script>
+    </script>  --}}
 @endsection
