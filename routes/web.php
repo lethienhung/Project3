@@ -213,18 +213,13 @@ Route::group(['middleware' => ['auth', 'lecturer']], function () {
     Route::get('/teacher/lecturer/{lecturer_id}', 'LecturerController@index');
     Route::post('/teacher/lecturer/{lecturer_id}', 'LecturerController@store');
     Route::get('/lecturer/intern', 'LecturerProgressController@index');
+    Route::get('/lecturer/intern/{period_id}', 'LecturerProgressController@internPeriod');
 
-    //Lecturer Marking
-    Route::get('lecturer/mark', 'MarkingController@index');
     //Route::get('lecturer/intern', 'MarkingController@create');
-    Route::post('lecturer/intern', 'MarkingController@store');
+    Route::post('lecturer/intern/', 'MarkingController@store');
 
     Route::get('/lecturer', function(){
         return view('lecturer.lecturerdashboard');
-    });
-
-    Route::get('studentlist', function () {
-        return view('lecturer.student_list');
     });
 
     Route::get('studentlist/student', function () {
