@@ -25,6 +25,9 @@
         </script>
     @endif
     @if(Auth::user()->role == 'instructor')
+        <script type="text/javascript">
+            window.location = "{{ url('/instructor') }}";
+        </script>
     @endif
     @if(Auth::user()->role == 'company')
     @endif

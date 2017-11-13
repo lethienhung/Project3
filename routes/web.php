@@ -45,9 +45,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/student/cv/{student_id}', 'StudentCvController@index');
     Route::get('/topic', 'ListTopicController@index');
     Route::get('/loadmore', 'ListTopicController@loadMore');
-    ////
-    Route::get('/search', 'SearchController@index');
+
+    // search
+    //Route::get('/search', 'SearchController@index');
     Route::post('/search/input', 'SearchController@checkInput');
+    Route::get('/search', function(){
+        return view('search.search');
+    });
 
 });
 
@@ -75,9 +79,11 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     //grade
     Route::get('/admin/grade', 'UserController@grade');
-    //Create User
+
+    //Create User - Done
     Route::get('/admin/users/create', 'UserController@create');
     Route::post('/admin/users/create', 'UserController@store');
+    
     //
     Route::get('/notice', 'NoticeEmailController@create');
     Route::get('/failed/test', 'FailedController@destroy');
@@ -113,6 +119,9 @@ Route::group(['middleware' => ['auth', 'company']], function () {
 /** Instructor - Done - CHECKED*/
 Route::group(['middleware' => ['auth', 'instructor']], function () {
 
+    //Dashboard
+    Route::get('/instructor', 'InstructorController@dashboard');
+
     //Instructor outline management - Done
     Route::get('/instructor/outline/{topicId}', 'OutlineController@createOutline');
     Route::post('/instructor/outline/store', 'OutlineController@store');
@@ -133,7 +142,10 @@ Route::group(['middleware' => ['auth', 'instructor']], function () {
     Route::post('/instructor/mark/{student_id}', 'MarkingController@storeInstructorMark');
     Route::post('/instructor/evaluate/{student_id}', 'MarkingController@storeInstructorEvaluation');
 
-
+    //Mark
+    Route::get('instructor/mark', function(){
+        return view('instructor.mark');
+    });
 });
 
 /** Student - DONE - CHECKED */
@@ -188,9 +200,11 @@ Route::group(['middleware' => ['auth', 'manager']], function () {
     /* Assign Student */
     Route::get('/assign', 'AssignmentController@store');
 
+
     //Periods
     Route::get('/fetch/student/{period_id}', 'PeriodController@fetchStudentNotInPeriods'); //fetch student not in period
     Route::get('/get/student/{period_id}', 'PeriodController@fetchStudentInPeriods'); //fetch student has assign to a period
+
     Route::get('periods', 'PeriodController@index');
     Route::get('period/{period_id}', 'PeriodController@getPeriod');
     Route::get('periods/create', 'PeriodController@create');
@@ -213,18 +227,13 @@ Route::group(['middleware' => ['auth', 'lecturer']], function () {
     Route::get('/teacher/lecturer/{lecturer_id}', 'LecturerController@index');
     Route::post('/teacher/lecturer/{lecturer_id}', 'LecturerController@store');
     Route::get('/lecturer/intern', 'LecturerProgressController@index');
+    Route::get('/lecturer/intern/{period_id}', 'LecturerProgressController@internPeriod');
 
-    //Lecturer Marking
-    Route::get('lecturer/mark', 'MarkingController@index');
     //Route::get('lecturer/intern', 'MarkingController@create');
-    Route::post('lecturer/intern', 'MarkingController@store');
+    Route::post('lecturer/intern/', 'MarkingController@store');
 
     Route::get('/lecturer', function(){
         return view('lecturer.lecturerdashboard');
-    });
-
-    Route::get('studentlist', function () {
-        return view('lecturer.student_list');
     });
 
     Route::get('studentlist/student', function () {

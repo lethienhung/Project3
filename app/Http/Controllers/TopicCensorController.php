@@ -17,7 +17,7 @@ class TopicCensorController extends Controller
     public function create()
     {
         //
-        $topics = DB::table('topic')->get();
+        $topics = DB::table('topic')->orderBy('id','desc')->get();
         $topic = Topic::where('status', '=', 'Pending')->get();
         $approved = Topic::where('status', '=', 'Approved')->get();
         return view('manager.topics', compact('topics', 'topic', 'approved'));

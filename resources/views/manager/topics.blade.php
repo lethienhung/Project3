@@ -64,7 +64,7 @@
                                         <tbody>
                                             @foreach($topics as $top)
                                             <tr>
-                                                <td> {{$top->title}}</td>
+                                                <td> <a href="/topic/{{$top->topic_id}}" target="_blank">{{$top->title}}</a></td>
                                                 <td> {{$top->created_at}}</td>
                                                 <td> {{$top->quantity}}</td>
                                                 <td class="{{$top->topic_id}}a"> 
