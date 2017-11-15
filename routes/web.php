@@ -40,11 +40,18 @@ Route::get('logout', function () {
 
 /** All users */
 Route::group(['middleware' => ['auth']], function () {
-    //Topic info, student cv - Done
+    //Topic info - Done
     Route::get('/topic/{topic_id}', 'TopicController@index');
-    Route::get('/student/cv/{student_id}', 'StudentCvController@index');
     Route::get('/topic', 'ListTopicController@index');
     Route::get('/loadmore', 'ListTopicController@loadMore');
+
+    //Student Profile with marking history - Done
+    Route::get('student/profile/{id}', 'StudentsController@index');
+    //Student Intern Process - done
+    Route::get('/student/intern/{student_id}', 'InternProcessController@show');
+    //Student CV - Done
+    Route::get('/student/cv/{student_id}', 'StudentCvController@index');
+
 
     // search
     //Route::get('/search', 'SearchController@index');
@@ -156,7 +163,7 @@ Route::group(['middleware' => ['auth', 'student']], function () {
     });
 
     //Student Profile -done
-    Route::get('student/profile/{id}', 'StudentsController@index');
+    
     Route::get('student/create/profile', 'StudentsController@create');
     Route::post('student/profile/update', 'StudentsController@store');
     Route::post('/dropzone', 'StudentsController@upload');
@@ -170,9 +177,6 @@ Route::group(['middleware' => ['auth', 'student']], function () {
     //Student Report-done
     Route::post('/upload/report', 'ReportController@uploadReport');
     Route::post('/report/submit', 'ReportController@submitReport');
-
-    //Student Intern Process - done
-    Route::get('/student/intern', 'InternProcessController@show');
 
     //student feedback - done
     Route::get('contact',
@@ -196,15 +200,15 @@ Route::group(['middleware' => ['auth', 'manager']], function () {
     Route::get('/match', 'MatchingController@matchingFull');
     Route::get('/parser/approve', 'MatchingController@store');
     Route::get('/parser/decline', 'MatchingController@destroy');
-
+    Route::get('/fetchstudentslist','MatchingController@getStudentCv');
+    Route::get('/fetchtopicslist', 'MatchingController@getTopics');
     /* Assign Student */
     Route::get('/assign', 'AssignmentController@store');
+    
 
-
-    //Periods
+    //Periods - done
     Route::get('/fetch/student/{period_id}', 'PeriodController@fetchStudentNotInPeriods'); //fetch student not in period
     Route::get('/get/student/{period_id}', 'PeriodController@fetchStudentInPeriods'); //fetch student has assign to a period
-
     Route::get('periods', 'PeriodController@index');
     Route::get('period/{period_id}', 'PeriodController@getPeriod');
     Route::get('periods/create', 'PeriodController@create');
@@ -223,25 +227,20 @@ Route::group(['middleware' => ['auth', 'manager']], function () {
 
 /** Lecturer */
 Route::group(['middleware' => ['auth', 'lecturer']], function () {
-
-    Route::get('/teacher/lecturer/{lecturer_id}', 'LecturerController@index');
-    Route::post('/teacher/lecturer/{lecturer_id}', 'LecturerController@store');
-    Route::get('/lecturer/intern', 'LecturerProgressController@index');
-    Route::get('/lecturer/intern/{period_id}', 'LecturerProgressController@internPeriod');
-
-    //Route::get('lecturer/intern', 'MarkingController@create');
-    Route::post('lecturer/intern/', 'MarkingController@store');
-
+    //Lecturer Dashboard - done
     Route::get('/lecturer', function(){
         return view('lecturer.lecturerdashboard');
     });
+    //Lecturer Profile
+    Route::get('/teacher/lecturer/{lecturer_id}', 'LecturerController@index');
+    Route::post('/teacher/lecturer/{lecturer_id}', 'LecturerController@store');
 
-    Route::get('studentlist/student', function () {
-        return view('lecturer.student_mark');
-    });
+    //Lecturer check mark history - Done
+    Route::get('/lecturer/intern', 'LecturerProgressController@index');
+    Route::get('/lecturer/intern/{period_id}', 'LecturerProgressController@internPeriodStudents');
+    
+    //Lecturer Marking
+    Route::post('lecturer/intern/', 'MarkingController@store');
 
-    Route::get('studentlist/student/mark', function () {
-        return view('lecturer.mark_period');
-    });
 });
 

@@ -76,15 +76,14 @@ class InternProcessController extends Controller
     }
 
 
-    public function show(Students $students)
+    public function show($student_id)
     {
-
-        $id = $students->retrieveStudentId();
+        
         /* Begin Intern Process part*/
-        $student = DB::table('students')->where('student_id', '=', $id)->first();
-        $evaluation = DB::table('evaluation')->where('student_id', '=', $id)->get();
+        $student = DB::table('students')->where('student_id', '=', $student_id)->first();
+        $evaluation = DB::table('evaluation')->where('student_id', '=', $student_id)->get();
         //instructor info
-        $instructorId = DB::table('student_instructor_company')->where('student_id', '=', $id)->pluck('instructor_id');
+        $instructorId = DB::table('student_instructor_company')->where('student_id', '=', $student_id)->pluck('instructor_id');
         $instructor = DB::table('instructor_company')->where('instructor_id', '=', $instructorId)->first();
         //company info
         $companyId = DB::table('instructor_company')->where('instructor_id', $instructorId)->pluck('company_id');
@@ -94,23 +93,23 @@ class InternProcessController extends Controller
         $topicId = DB::table('topic')->where('representation_id', '=', $repId)->pluck('topic_id');
         $topic = DB::table('topic')->where('topic_id', '=', $topicId)->first();
         //Period Info
-        $periodId = DB::table('periods_students')->where('student_id', '=', $id)->pluck('period_id');
-        $period = DB::table('periods')->where('id', '=', $periodId)->first();
+        $periodId = DB::table('periods_students')->where('student_id', '=', $student_id)->orderBy('id','desc')->first();
+        $period = DB::table('periods')->where('id', '=', $periodId->period_id)->first();
         $endDate = $period->end_date;
         $endDateCarbon = new Carbon($endDate);
-        $endDateFeedback = $endDateCarbon->addWeeks(200);
+        $endDateFeedback = $endDateCarbon->addWeeks(20);
         /* End Intern Process part */
         /* Begin Outline part*/
-        $outline = DB::table('outline_work')->where('student_id', '=', $id)->groupBy('week')->get();
-        $allWeek = DB::table('outline_work')->where('student_id', '=', $id)->groupBy('week')->pluck('week');
+        $outline = DB::table('outline_work')->where('student_id', '=', $student_id)->groupBy('week')->get();
+        $allWeek = DB::table('outline_work')->where('student_id', '=', $student_id)->groupBy('week')->pluck('week');
         $countWorking = DB::table('outline_work')->select(DB::raw('COUNT(work) as working'))
-            ->where('student_id', $id)->where('status', '=', 'Working')->first();
+            ->where('student_id', $student_id)->where('status', '=', 'Working')->first();
         $countWorked = DB::table('outline_work')->select(DB::raw('COUNT(work) as done'))
-            ->where('student_id', $id)->where('status', '=', 'Done')->first();
+            ->where('student_id', $student_id)->where('status', '=', 'Done')->first();
         /** End Outline part */
         /** Begin Marking Part */
 
-        $stdMark = DB::table('mark')->where('student_id', $id)->first();
+        $stdMark = DB::table('mark')->where('student_id', $student_id)->first();
 
         /**End Marking Part */
         return view('student.student_intern_process',

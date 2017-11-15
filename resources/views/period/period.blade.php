@@ -81,7 +81,7 @@
                                             <a href="#tab_1_2" data-toggle="tab"> Các sinh viên trong đợt thực tập này </a>
                                         </li>                                        
                                     </ul>
-                                    <input id="this_period" value="{{$period_id}}">
+                                    <input id="this_period" value="{{$period_id}}" type="hidden">
                                     <div class="tab-content">
                                         <div class="tab-pane fade active in" id="tab_1_1">
                                             <div class="portlet-body">

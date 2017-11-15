@@ -26,8 +26,9 @@ class StudentsController extends Controller
     {
 
         $student = DB::table('students')->where('student_id', '=', $id)->first();
-
-        return view('student.student_profile', compact('student'));
+        $markHistory = DB::table('periods_students')->where('student_id',$id)->get();
+        $currentMark = DB::table('mark')->where('student_id',$id)->get();
+        return view('student.student_profile', compact('student','markHistory','currentMark'));
         // ->with('aspiration', DB::table('students')
         //     ->join('aspiration', 'students.student_id', '=', 'aspiration.student_id')
         //     ->where('students.student_id', '=', $id)->get());

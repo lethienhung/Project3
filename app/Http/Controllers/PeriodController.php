@@ -79,8 +79,13 @@ class PeriodController extends Controller
         
             DB::table('periods_students')->insert([
                 'period_id' => $request->period_id,
-                'student_id' => $request->student_id
+                'student_id' => $request->student_id,
+                'instructor_mark'=> '',
+                'instructor_id' => '',
+                'lecturer_mark' => '',
+                'lecturer_id' => '',
             ]);
+            
         
     }
 }

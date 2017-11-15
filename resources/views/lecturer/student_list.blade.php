@@ -72,70 +72,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach($studentInThisPeriod as $std)
                                         <tr>
-                                            <td> 20138677 </td>
-                                            <td> Lê </td>
-                                            <td> Thiện Hưng</td>
+                                            <td> {{$std->student_id}} </td>
+                                            <td> {{$std->last_name}} </td>
+                                            <td> {{$std->first_name}}</td>
                                             <td> <span class="label label-m label-success">Finished</span></td>
-                                            <td> <a class="btn btn-xs btn-success" href="studentlist/student">Xem <i class="fa fa-search"></i></a></td>
+                                            <td> <a class="btn btn-xs btn-success" href="/student/profile/{{$std->student_id}}">Xem <i class="fa fa-search"></i></a></td>
                                         </tr>
-                                        <tr>
-                                            <td> 20138677 </td>
-                                            <td> Lê </td>
-                                            <td> Thiện Hưng</td>
-                                            <td> <span class="label label-m label-success">Finished</span></td>
-                                            <td> <a class="btn btn-xs btn-success" href="studentlist/student">Xem <i class="fa fa-search"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td> 20138677 </td>
-                                            <td> Lê </td>
-                                            <td> Thiện Hưng</td>
-                                            <td> <span class="label label-m label-success">Finished</span></td>
-                                            <td> <a class="btn btn-xs btn-success" href="studentlist/student">Xem <i class="fa fa-search"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td> 20138677 </td>
-                                            <td> Lê </td>
-                                            <td> Thiện Hưng</td>
-                                            <td> <span class="label label-m label-success">Finished</span></td>
-                                            <td> <a class="btn btn-xs btn-success" href="student">Xem <i class="fa fa-search"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td> 20138677 </td>
-                                            <td> Lê </td>
-                                            <td> Thiện Hưng</td>
-                                            <td> <span class="label label-m label-success">Finished</span></td>
-                                            <td> <a class="btn btn-xs btn-success" href="student">Xem <i class="fa fa-search"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td> 20138677 </td>
-                                            <td> Lê </td>
-                                            <td> Thiện Hưng</td>
-                                            <td> <span class="label label-m label-success">Finished</span></td>
-                                            <td> <a class="btn btn-xs btn-success" href="student">Xem <i class="fa fa-search"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td> 20138677 </td>
-                                            <td> Lê </td>
-                                            <td> Thiện Hưng</td>
-                                            <td> <span class="label label-m label-success">Finished</span></td>
-                                            <td> <a class="btn btn-xs btn-success" href="student">Xem <i class="fa fa-search"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td> 20138677 </td>
-                                            <td> Lê </td>
-                                            <td> Thiện Hưng</td>
-                                            <td> <span class="label label-m label-success">Finished</span></td>
-                                            <td> <a class="btn btn-xs btn-success" href="student">Xem <i class="fa fa-search"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td> 20138677 </td>
-                                            <td> Lê </td>
-                                            <td> Thiện Hưng</td>
-                                            <td> <span class="label label-m label-success">Finished</span></td>
-                                            <td> <a class="btn btn-xs btn-success" href="student">Xem <i class="fa fa-search"></i></a></td>
-                                        </tr>
-
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

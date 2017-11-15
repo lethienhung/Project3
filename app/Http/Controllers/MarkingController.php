@@ -59,6 +59,13 @@ class MarkingController extends Controller
                 'instructor_id' => Auth::user()->user_id,
                 'created_at' => date('Y-m-d H-m-s')
             ]);
+        
+        DB::table('periods_students')->where('student_id',$student_id)->where('instructor_mark','=','')
+        ->update([
+            'instructor_mark' => $request->mark,
+            'instructor_id' => Auth::user()->user_id,
+            'updated_at' => date('Y-m-d H-m-s')
+        ]);
 
         $activity = 'Updated Student\'s results';
         LogsController::logging($activity);

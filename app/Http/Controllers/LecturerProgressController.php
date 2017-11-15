@@ -6,6 +6,7 @@ use App\InstructorCompany;
 use App\Lecturer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class LecturerProgressController extends Controller
 {
@@ -14,20 +15,21 @@ class LecturerProgressController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Lecturer $lecturerId, InstructorCompany $instructorId)
+    public function index()
     {
-        //$students = DB::table('assignment')->join('marking')
         
-        return view('lecturer.student_list', compact('lecturer_id', 'studentId', 'studentIds'));
+        //$students = DB::table('assignment')->join('marking')
+        $periods = DB::table('periods')->get();
+        return view('lecturer.periods_list', compact('periods'));
 
     }
 
-    public function internPeriod($period_id)
+    public function internPeriodStudents($period_id)
     {
         # code...
         $student_id = DB::table('periods_students')->where('period_id',$period_id)->pluck('student_id');
         $studentInThisPeriod = DB::table('students')->whereIn('student_id',$student_id)->get();
-        return view('lecturer.student_list',compact('studentInThisPeriod'));
+        return view('lecturer.student_list',compact('studentInThisPeriod','period_id'));
     }
 
     public function create()
