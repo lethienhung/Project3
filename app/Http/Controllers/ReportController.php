@@ -55,6 +55,18 @@ class ReportController extends Controller
         return view('student.studentinternprocess', compact('reported'));
     }
 
+    public function getDownload($filename)
+    {
+        //PDF file is stored under project/public/download/info.pdf
+        $file= public_path(). "/storage/".$filename;
+
+        $headers = array(
+                'Content-Type: application/pdf/doc/docx',
+                );
+
+        return response()->download($file, $filename, $headers);
+    }
+
     public function store(Request $request)
     {
         //

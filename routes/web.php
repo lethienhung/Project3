@@ -60,6 +60,9 @@ Route::group(['middleware' => ['auth']], function () {
         return view('search.search');
     });
 
+    //Download report
+    Route::get('/download/{filename}','ReportController@getDownload');
+
 });
 
 /** Admin */

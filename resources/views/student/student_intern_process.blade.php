@@ -526,6 +526,8 @@
                         <span class="caption-subject font-green bold uppercase">Chấm công của công ty</span>
                     </div>
                 </div>
+               
+                @if(Auth::user()->role == 'student' && $now <= $endDateReport)
                 <div class="col-md-6">
                     <div class="form-group">
                         <span class="caption-subject font-green bold uppercase"></span>
@@ -544,11 +546,54 @@
 
                         </form>
 
+                    </div>
+                </div>
+                @elseif(Auth::user()->role == 'student' && $now > $endDateReport)
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <span class="caption-subject font-green bold uppercase"></span>
+                        <br>
+                        <form class="dropzone dropzone-file-area dz-clickable" style="width: 500px;">
+                          
+                            <h3 class="sbold">Đã hết hạn nộp báo cáo</h3>
+                            <p>
+                                <a class="btn btn-success" href="/contact">Feedback</a>
+                            </p>
+                            <div class="dz-default dz-message">
+                                <span></span>
+
+                            </div>
+
+                        </form>
+
                         {{--
                         <input type="file" class="dropzone dropzone-file-area" id="file" name="image" style="width: 500px;"></input> --}}
 
                     </div>
                 </div>
+                @elseif(Auth::user()->role != 'student')
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <span class="caption-subject font-green bold uppercase"></span>
+                        <br>
+
+                        <form class="dropzone dropzone-file-area dz-clickable" style="width: 500px;">
+                            
+                            <h3 class="sbold">Báo cáo của sinh viên</h3>
+                            <p>
+                                <a class="btn btn-success" href="/download/{{$report->filename}}">Download</a>
+                            </p>
+                            <div class="dz-default dz-message">
+                                <span></span>
+                            </div>
+
+                        </form>
+                        {{--
+                        <input type="file" class="dropzone dropzone-file-area" id="file" name="image" style="width: 500px;"></input> --}}
+
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>

@@ -1,0 +1,10 @@
+﻿l?i: các công ty có th? s?a d? tài c?a nhau
+gi?ng viên phê duy?t d? tài: t? ch?i d? tài dang có sinh viên th?c t?p mà dã phân công tru?c dó
+d? tài không có s? lu?ng c?n tuy?n -> d? tài h?t h?n/ h?t s? lu?ng c?n thi?t v?n có th? cho phép sv ?ng tuy?n
+không có phân công, so kh?p t? d?ng
+gi?ng viên d?ng ý/ t? ch?i cho sinh viên tham gia th?c t?p: không rõ k?t qu? c?a ch?c nang khi t? ch?i thì sinh viên v?n trong danh sách th?c t?p t?i công ty v?i d? tài dó
+sinh viên không có xem di?m, feedback, n?p báo cáo
+không có ch?c nang ch?m di?m, nh?n xét cho giáo viên ph? trách th?c t?p t?i tru?ng
+ch?c nang c?a giáo viên ph? trách và giáo viên qu?n lý gi?ng h?t nhau
+ngu?i hu?ng d?n t?i công ty : không có ch?c nang nào
+A

@@ -97,7 +97,9 @@ class InternProcessController extends Controller
         $period = DB::table('periods')->where('id', '=', $periodId->period_id)->first();
         $endDate = $period->end_date;
         $endDateCarbon = new Carbon($endDate);
-        $endDateFeedback = $endDateCarbon->addWeeks(20);
+        $endDateFeedback = $endDateCarbon->addWeeks(2);
+        $endDateReport = $endDateCarbon->subWeeks(2);
+        $now = new Carbon();
         /* End Intern Process part */
         /* Begin Outline part*/
         $outline = DB::table('outline_work')->where('student_id', '=', $student_id)->groupBy('week')->get();
@@ -110,12 +112,12 @@ class InternProcessController extends Controller
         /** Begin Marking Part */
 
         $stdMark = DB::table('mark')->where('student_id', $student_id)->first();
-
-        /**End Marking Part */
+        $report = DB::table('report')->where('student_id',$student_id)->first();
+        /**End Marking Part */  
         return view('student.student_intern_process',
             compact('student', 'instructor', 'topic', 'company',
-                'evaluation', 'endDateFeedback', 'outline',
-                'countWorking', 'countWorked', 'stdMark'));
+                'evaluation', 'endDateFeedback','now', 'outline',
+                'countWorking', 'countWorked','endDateReport', 'stdMark','report'));
 
     }
 
