@@ -1,6 +1,10 @@
 @extends('layouts.profile')
 @section('title') Instructor - Profile
-@endsection @section('content')
+@endsection 
+@section('sidebar')
+@include('layouts.sidebar_instructor')
+@endsection
+@section('content')
     <!-- BEGIN PAGE BASE CONTENT -->
     <div class="profile">
         <div class="tabbable-line tabbable-full-width">

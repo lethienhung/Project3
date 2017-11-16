@@ -1,4 +1,10 @@
-@extends('layouts.profile') @section('title') Student - Profile @endsection @section('content')
+@extends('layouts.profile') 
+@section('title') Student - Profile 
+@endsection 
+@section('sidebar')
+@include('layouts.sidebar_student')
+@endsection
+@section('content')
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="profile">
     <div class="tabbable-line tabbable-full-width">
@@ -6,7 +12,7 @@
             <li class="active">
                 <a href="#tab_1_1" data-toggle="tab"> Profile </a>
             </li>
-            @if(Auth::user()->user_id == 'student')
+            @if(Auth::user()->role == 'student')
             <li>
                 <a href="#tab_1_3" data-toggle="tab"> Edit </a>
             </li>

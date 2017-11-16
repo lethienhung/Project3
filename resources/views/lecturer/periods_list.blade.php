@@ -1,5 +1,6 @@
 @extends('layouts.mainlayout') @section('title', 'Danh sách các sinh viên cần chấm điểm') @section('pageplugins1') @parent
 @endsection @section('content') @parent
+@include('layouts.sidebar_lecturer')
 <div class="page-content-wrapper">
     <!-- BEGIN CONTENT BODY -->
     <div class="page-content">

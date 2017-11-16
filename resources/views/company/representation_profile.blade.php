@@ -1,6 +1,8 @@
 @extends('layouts.profile')
 @section('title','Company Profile')
-
+@section('sidebar')
+@include('layouts.sidebar_rep')
+@endsection
 @section('content')
     <!-- BEGIN PAGE BASE CONTENT -->
     <div class="profile">

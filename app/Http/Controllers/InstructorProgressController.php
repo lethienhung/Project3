@@ -34,6 +34,13 @@ class InstructorProgressController extends Controller
         return view('instructor.instructorprogress');
 
     }
+    public function topicManage()
+    {
+        $id = Auth::user()->user_id;
+        $company_id = DB::table('instructor_company')->where('instructor_id',$id)->pluck('company_id');
+        $topics = DB::table('topic')->where('representation_id',$company_id)->get();
+        return view('instructor.topic_manage',compact('topics'));
+    }
 
     public function store(Request $request)
     {

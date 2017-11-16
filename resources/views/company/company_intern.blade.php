@@ -20,6 +20,8 @@
 
 @endsection
 @section('content')
+    @parent
+    @include('layouts.sidebar_rep')
     <div class="page-content-wrapper">
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">

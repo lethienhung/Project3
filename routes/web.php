@@ -103,8 +103,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 Route::group(['middleware' => ['auth', 'company']], function () {
 
     //Representation and Company profile  - done
-    Route::post('/company/representation/{representation_id}', 'RepresentationCompanyController@store');
     Route::get('/company/representation/{representation_id}', 'RepresentationCompanyController@index');
+    Route::post('/company/representation/{representation_id}', 'RepresentationCompanyController@store');
 
     //Create Topic- done
     Route::get('/company/intern/', 'CompanyInternController@index');
@@ -145,6 +145,7 @@ Route::group(['middleware' => ['auth', 'instructor']], function () {
     Route::post('instructor/internship', 'InstructorProgressController@store');
 
     //intern progress - Done
+    Route::get('/instructor/topic/manage','InstructorProgressController@topicManage');
     Route::get('/instructor/intern', 'InstructorProgressController@index');
     Route::post('/instructor/mark/{student_id}', 'MarkingController@storeInstructorMark');
     Route::post('/instructor/evaluate/{student_id}', 'MarkingController@storeInstructorEvaluation');
@@ -232,8 +233,8 @@ Route::group(['middleware' => ['auth', 'lecturer']], function () {
         return view('lecturer.lecturerdashboard');
     });
     //Lecturer Profile
-    Route::get('/teacher/lecturer/{lecturer_id}', 'LecturerController@index');
-    Route::post('/teacher/lecturer/{lecturer_id}', 'LecturerController@store');
+    Route::get('/lecturer/profile/{lecturer_id}', 'LecturerController@index');
+    Route::post('/lecturer/profile/{lecturer_id}', 'LecturerController@store');
 
     //Lecturer check mark history - Done
     Route::get('/lecturer/intern', 'LecturerProgressController@index');

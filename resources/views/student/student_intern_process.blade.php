@@ -3,6 +3,9 @@
 @section('extra-css')
 <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css"> 
 @endsection 
+@section('sidebar')
+@include('layouts.sidebar_student')
+@endsection
 @section('content')
 <!-- END PAGE BREADCRUMB -->
 <!-- BEGIN PAGE BASE CONTENT -->

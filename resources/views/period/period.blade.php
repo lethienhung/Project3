@@ -10,6 +10,7 @@
 
 @section('content')
 	@parent
+    @include('layouts.sidebar_manager')
 	<div class="page-content-wrapper" id="add-to-period">
                 <!-- BEGIN CONTENT BODY -->
                 <div class="page-content">

@@ -23,22 +23,22 @@
                         <tr>
                             <th></th>
                             <th class="all">Student ID</th>
-                            <th class="min-phone-l">Student Name</th>
-                            <th class="min-tablet">Topic</th>
+                            <th class="min-phone-l">Topic title</th>
+                            <th class="min-tablet">Topic ID</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($studentInCompany as $student)
+                        @foreach($topics as $topic)
 
                             <tr>
                                 <th></th>
-                                <td>{{$student->student_id}}</td>
-                                <td>{{$student->last_name}} {{$student->first_name}}</td>
-                                <td>{{$student->topic_id}}</td>
-                                <td>{{$student->status}}</td>
-                                <td><a href="/instructor/manage/{{$student->student_id}}">Manage</a></td>
+                                <td>{{$topic->created_at}}</td>
+                                <td>{{$topic->title}}</td>
+                                <td>{{$topic->topic_id}}</td>
+                                <td>{{$topic->status}}</td>
+                                <td><a href="/instructor/outline/{{$topic->topic_id}}">Manage</a></td>
 
                             </tr>
                         @endforeach

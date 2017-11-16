@@ -54,12 +54,9 @@
 <!-- END HEADER & CONTENT DIVIDER -->
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
-    <!-- BEGIN SIDEBAR -->
-@include('layouts.sidebar')
-<!-- END SIDEBAR -->
+@yield('content')
 
     <!-- BEGIN CONTENT -->
-@yield('content')
 
 <!-- END CONTENT -->
 

@@ -5,6 +5,10 @@
 @section('extra-css')
     <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 @endsection
+@section('sidebar')
+@include('layouts.sidebar_instructor')
+@endsection
+
 @section('content')
     <!-- BEGIN PAGE BASE CONTENT -->
     <div class="row">

@@ -1,4 +1,11 @@
-@extends('layouts.intern_process') @section('title','Student Intern Process') @section('extra-css') @endsection @section('content')
+@extends('layouts.intern_process') 
+@section('title','Student Intern Process') 
+@section('extra-css') 
+@endsection 
+@section('sidebar')
+@include('layouts.sidebar_manager')
+@endsection
+@section('content')
 <!-- END PAGE BREADCRUMB -->
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="tabbable-line tabbable-full-width">

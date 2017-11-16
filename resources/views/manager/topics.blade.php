@@ -11,6 +11,7 @@
 
 @section('content')
 	@parent
+    @include('layouts.sidebar_manager')
 	<div class="page-content-wrapper">
                 <!-- BEGIN CONTENT BODY -->
                 <div class="page-content">
@@ -23,9 +24,7 @@
                             </h1>
                         </div>
                         <!-- END PAGE TITLE -->
-                        <!-- BEGIN PAGE TOOLBAR -->
-                        @include('layouts.toolbar')
-                        <!-- END PAGE TOOLBAR -->
+
                     </div>
                     <!-- END PAGE HEAD-->
                     <!-- BEGIN PAGE BREADCRUMB -->

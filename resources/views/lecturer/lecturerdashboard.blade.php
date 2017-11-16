@@ -8,6 +8,7 @@
 
 @section('content')
     @parent
+    @include('layouts.sidebar_lecturer')
     <div class="page-content-wrapper">
                 <!-- BEGIN CONTENT BODY -->
                 <div class="page-content">
@@ -31,7 +32,7 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="portlet light">
                                 <div class="card-icon">
-                                    <a href="/studentlist"><i class="icon-user-follow font-red-sunglo theme-font"></i></a>
+                                    <a href="/lecturer/mark"><i class="icon-user-follow font-red-sunglo theme-font"></i></a>
                                 </div>
                                 <div class="card-title">
                                     <span> Quản lý điểm </span>
@@ -45,10 +46,10 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="portlet light">
                                 <div class="card-icon">
-                                    <a href="#"><i class="icon-trophy font-green-haze theme-font"></i></a>
+                                    <a href="/lecturer/intern"><i class="icon-trophy font-green-haze theme-font"></i></a>
                                 </div>
                                 <div class="card-title">
-                                    <span> Chức năng 2 </span>
+                                    <span> Quản lý thực tập</span>
                                 </div>
                                 <div class="card-desc">
                                     <span> Với chức năng này
@@ -59,10 +60,10 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="portlet light">
                                 <div class="card-icon">
-                                     <a href="#"><i class="icon-basket font-purple-wisteria theme-font"></i></a>
+                                     <a href="/topic"><i class="icon-basket font-purple-wisteria theme-font"></i></a>
                                 </div>
                                 <div class="card-title">
-                                    <span> Chức năng 3 </span>
+                                    <span> Quản lý đề tài </span>
                                 </div>
                                 <div class="card-desc">
                                     <span> Với chức năng này
@@ -73,10 +74,10 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="portlet light">
                                 <div class="card-icon">
-                                     <a href="#"><i class="icon-layers font-blue theme-font"></i></a>
+                                     <a href="/topic"><i class="icon-layers font-blue theme-font"></i></a>
                                 </div>
                                 <div class="card-title">
-                                    <span> Chức năng 4 </span>
+                                    <span> Quản lý đề tài </span>
                                 </div>
                                 <div class="card-desc">
                                     <span> Với chức năng này

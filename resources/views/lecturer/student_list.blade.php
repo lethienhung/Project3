@@ -9,6 +9,7 @@
 
 @section('content')
 @parent
+@include('layouts.sidebar_lecturer')
 <div class="page-content-wrapper">
     <!-- BEGIN CONTENT BODY -->
     <div class="page-content">

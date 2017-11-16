@@ -2,7 +2,9 @@
 @section('title')
     Student - CV
 @endsection
-
+@section('sidebar')
+@include('layouts.sidebar_student')
+@endsection
 @section('content')
     <!-- BEGIN PAGE BASE CONTENT -->
     <div class="profile">
