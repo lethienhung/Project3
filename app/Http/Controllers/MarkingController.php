@@ -18,11 +18,6 @@ class MarkingController extends Controller
         return view('lecturer.list_student')->with('studentId', DB::table('students')->get());
     }
 
-    public function create($student_id)
-    {
-
-    }
-
     public function storeLecturerMark(Request $request, $student_id)
     {
 
@@ -32,11 +27,17 @@ class MarkingController extends Controller
                 'lecturer_id' => Auth::user()->user_id,
                 'created_at' => date('Y-m-d H-m-s')
             ]);
+        DB::table('periods_students')->where('student_id',$student_id)->where('lecturer_mark','=','')
+        ->update([
+            'lecturer_mark' => $request->mark,
+            'lecturer_id' => Auth::user()->user_id,
+            'updated_at' => date('Y-m-d H-m-s')
+        ]);
 
         $activity = 'Updated Student\'s results';
         LogsController::logging($activity);
 
-        return redirect('lecturer/intern');
+        return redirect('/lecturer/intern');
     }
 
     public function storeLecturerEvaluation(Request $rerquest, $student_id)
@@ -70,7 +71,7 @@ class MarkingController extends Controller
         $activity = 'Updated Student\'s results';
         LogsController::logging($activity);
 
-        return redirect('instructor/intern');
+        return redirect('/instructor/intern');
     }
 
     public function storeInstructorEvaluation(Request $request, $student_id)

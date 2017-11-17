@@ -107,7 +107,9 @@
                                 <div class="mt-list-container list-todo" id="accordion1" role="tablist" aria-multiselectable="true">
                                     <div class="list-todo-line"></div>
                                     <ul>
-                                        @foreach($outline as $ol) @php $workByWeek = DB::table('outline_work')->where('student_id',$ol->student_id)->where('week',$ol->week)->get();
+                                        @foreach($outline as $ol) 
+                                        @php 
+                                        $workByWeek = DB::table('outline_work')->where('student_id',$ol->student_id)->where('week',$ol->week)->get();
                                         $workPerWeek = DB::table('outline_work')->where('student_id',$ol->student_id)->where('week',$ol->week)->count();
                                         @endphp
                                         <li class="mt-list-item">
@@ -250,11 +252,11 @@
                             <div class="clearfix"></div>
                             <div class="margin-top-20 profile-desc-link">
                                 <i class="fa fa-user-md"></i>
-                                <a>Họ và tên người hướng dẫn: Nguyễn Văn A</a>
+                                <a>Họ và tên người hướng dẫn: {{$instructor->name}}</a>
                             </div>
                             <div class="margin-top-20 profile-desc-link">
                                 <i class="fa fa-envelope"></i>
-                                <a>Email: anv@gmail.com</a>
+                                <a>Email: {{$instructor->email}}</a>
                             </div>
                             <div class="margin-top-20 profile-desc-link">
                                 <i class="fa fa-facebook"></i>
@@ -599,6 +601,9 @@
     </div>
     <!-- END CONTENT BODY -->
     @endsection @section('extra-js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.js"></script>
+    <script src="https://unpkg.com/vue@2.4.2"></script>
+    <script src="/js/mark/marking.js"></script>
     <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
     <script>
         Dropzone.autoDiscover = false;

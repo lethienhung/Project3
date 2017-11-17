@@ -191,9 +191,7 @@ Route::group(['middleware' => ['auth', 'student']], function () {
 
 });
 
-
 /** Manager */
-
 Route::group(['middleware' => ['auth', 'manager']], function () {
 
     Route::get('manager', function(){
