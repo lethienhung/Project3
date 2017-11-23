@@ -113,12 +113,13 @@ class InternProcessController extends Controller
 
         $stdMark = DB::table('mark')->where('student_id', $student_id)->first();
         $report = DB::table('report')->where('student_id',$student_id)->first();
-        /**End Marking Part */  
+        /**End Marking Part */
+        
         return view('student.student_intern_process',
             compact('student', 'instructor', 'topic', 'company',
                 'evaluation', 'endDateFeedback','now', 'outline',
                 'countWorking', 'countWorked','endDateReport', 'stdMark','report'));
-
+            
     }
 
     /**

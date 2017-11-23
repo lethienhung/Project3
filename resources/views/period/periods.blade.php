@@ -111,9 +111,19 @@
                                                 <td> {{$period->name}}</td>
                                                 <td> {{$period->start_date}}</td>
                                                 <td> {{$period->end_date}}</td>
-                                                <td> ...</td>
+                                                @php
+                                                    $endDate = $period->end_date;
+                                                    $endDateCarbon = new \Carbon\Carbon($endDate);
+                                                @endphp 
+                                                <td>{{$now}}</td>
+                                               
+                                                @if($endDateCarbon < $now)
+                                                <td> <span class="label label-sm label-danger">Ended</span></td>
+                                                <td> <a class="btn btn-sm btn-danger">Ended</a></td>
+                                                @elseif($endDateCarbon > $now)
                                                 <td> <span class="label label-sm label-info">Pending</span></td>
                                                 <td> <a class="btn btn-sm btn-success" href="period/{{$period->id}}">Xem</a></td>
+                                                @endif
                                             </tr>
                                             @endforeach
                                         </tbody>

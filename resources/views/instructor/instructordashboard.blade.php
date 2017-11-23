@@ -32,10 +32,10 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="portlet light">
                                 <div class="card-icon">
-                                    <a href="#"><i class="icon-user-follow font-red-sunglo theme-font"></i></a>
+                                    <a href="/íntructor/intern"><i class="icon-user-follow font-red-sunglo theme-font"></i></a>
                                 </div>
                                 <div class="card-title">
-                                    <span> Chức năng 1 </span>
+                                    <span> Quản lý sinh viên </span>
                                 </div>
                                 <div class="card-desc">
                                     <span> Với chức năng này

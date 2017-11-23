@@ -238,6 +238,7 @@ Route::group(['middleware' => ['auth', 'lecturer']], function () {
     Route::post('/lecturer/profile/{lecturer_id}', 'LecturerController@store');
 
     //Lecturer check mark history - Done
+    Route::get('/lecturer/mark','LecturerProgressController@studentMark');
     Route::get('/lecturer/intern', 'LecturerProgressController@index');
     Route::get('/lecturer/intern/{period_id}', 'LecturerProgressController@internPeriodStudents');
     

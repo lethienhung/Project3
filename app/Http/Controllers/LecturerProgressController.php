@@ -32,9 +32,13 @@ class LecturerProgressController extends Controller
         return view('lecturer.student_list',compact('studentInThisPeriod','period_id'));
     }
 
-    public function create()
+    public function studentMark()
     {
-
+        $periodId = DB::table('periods')->orderBy('id','desc')->first();
+        $listStudent = DB::table('periods_students')
+                    ->join('students','periods_students.student_id','=','students.student_id')
+                    ->where('period_id',$periodId->id)->get();
+        return view('lecturer.list_student_mark',compact('listStudent'));
 
     }
 

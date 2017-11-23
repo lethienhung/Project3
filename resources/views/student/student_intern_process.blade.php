@@ -4,7 +4,13 @@
 <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css"> 
 @endsection 
 @section('sidebar')
+@if(Auth::user()->role == 'student')
 @include('layouts.sidebar_student')
+@elseif(Auth::user()->role == 'lecturer')
+@include('layouts.sidebar_lecturer')
+@elseif(Auth::user()->role == 'instructor')
+@include('layouts.sidebar_instructor')
+@endif
 @endsection
 @section('content')
 <!-- END PAGE BREADCRUMB -->
@@ -60,9 +66,11 @@
                                         <td> {{$company->company_name}} </td>
                                         <td> Intern status</td>
                                         <td> Outline link to download</td>
+                                        @if(Auth::user()->role == 'student')
                                         <td>
                                             <a class="btn btn-success" href="/contact">Feedback</a>
                                         </td>
+                                        @endif
                                     </tr>
                                 </tbody>
                             </table>
@@ -252,7 +260,7 @@
                             <div class="clearfix"></div>
                             <div class="margin-top-20 profile-desc-link">
                                 <i class="fa fa-user-md"></i>
-                                <a>Họ và tên người hướng dẫn: {{$instructor->name}}</a>
+                                <a>Họ và tên người hướng dẫn: {{$instructor->last_name}} {{$instructor->first_name}}</a>
                             </div>
                             <div class="margin-top-20 profile-desc-link">
                                 <i class="fa fa-envelope"></i>

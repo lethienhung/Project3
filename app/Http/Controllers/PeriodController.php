@@ -6,6 +6,7 @@ use App\Period;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class PeriodController extends Controller
 {
@@ -13,8 +14,10 @@ class PeriodController extends Controller
     public function index()
     {
         $periods = DB::table('periods')->get();
+        
+        $now = Carbon::now();
 
-        return view('period.periods')->with('periods', $periods);
+        return view('period.periods',compact('periods','now'));
     }
 
     public function create()

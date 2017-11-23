@@ -28,6 +28,7 @@ class TopicController extends Controller
         $stdInTopic = DB::table('aspiration')->where('student_id', $student_id)->pluck('topic_id');
         $countNumberAspiration = DB::table('aspiration')->where('student_id', $student_id)->count();
         $stdAssigned = DB::table('assignment')->where('student_id', $student_id)->count();
+        //$stdPeriod = DB::table('periods_students')->where('student_id',$student_id)
         $company_id = DB::table('representation_company')->join('topic', 'representation_company.representation_id', '=', 'topic.representation_id')
             ->where('topic.topic_id', '=', $topicId)->pluck('company_id');
         $other_topic = DB::table('topic')->where('representation_id', '=', $company_id)->take(6)->get();

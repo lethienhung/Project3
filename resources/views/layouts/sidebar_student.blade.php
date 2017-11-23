@@ -15,7 +15,7 @@
             <li class="nav-item start ">
                 <a href="/student" class="nav-link nav-toggle">
                     <i class="icon-home"></i>
-                    <span class="title">Student Dashboard</span>
+                    <span class="title">Dashboard</span>
                     <span class="arrow"></span>
                 </a>
 
