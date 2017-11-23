@@ -471,62 +471,34 @@
                                     </div>
                                 </div>
                             </div>
+                            <br>
+                            @if(Auth::user()->role == 'lecturer')
+                                <button class="btn btn-success" data-toggle="modal" href="#marking-lecturer">Chấm điểm</button>
+                            @endif
                         </div>
                     </div>
                     <!-- END EXAMPLE TABLE PORTLET-->
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                    <div class="portlet box green">
-                        <div class="portlet-title">
-                            <div class="caption font-dark">
-                                <i class="icon-settings font-dark"></i>
-                                <span class="caption-subject bold uppercase">Header Fixed</span>
-                            </div>
-                            <div class="actions">
-                                <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                    <label class="btn btn-transparent dark btn-outline btn-circle btn-sm active">
-                                        <input type="radio" name="options" class="toggle" id="option1">Actions</label>
-                                    <label class="btn btn-transparent dark btn-outline btn-circle btn-sm">
-                                        <input type="radio" name="options" class="toggle" id="option2">Settings</label>
-                                </div>
-                            </div>
+            <div class="modal fade" id="marking-lecturer" tabindex="-1" role="basic" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">Chấm điểm</h4>
                         </div>
-                        <div class="portlet-body">
-                            <table style="text-align: center;" class="table table-striped table-bordered table-hover table-header-fixed" id="sample_1">
-                                <thead>
-                                    <tr class="">
-                                        <th> Topic</th>
-                                        <th> Instructor Mark</th>
-                                        <th> Teacher Mark</th>
-                                        <th> Instructor ID</th>
-                                        <th> Teacher ID</th>
-                                        <th> Feedback</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td> {{$topic->title}} </td>
-                                        <td> {{$stdMark->mark_instructor}} </td>
-                                        <td> {{$stdMark->mark_lecturer}} </td>
-                                        <td> {{$stdMark->instructor_id}} </td>
-                                        <td> {{$stdMark->lecturer_id}}</td>
-                                        <td>
-                                            <a class="btn btn-success" href="/contact">Feedback</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="modal-body">
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn dark btn-outline" data-dismiss="modal">Đóng</button>
+                            <button type="button" onclick="alert('confirm')" data-dismiss="modal" class="btn green">Xác nhận</button>
                         </div>
                     </div>
-                    <!-- END EXAMPLE TABLE PORTLET-->
-
+                    <!-- /.modal-content -->
                 </div>
+                <!-- /.modal-dialog -->
             </div>
-            <hr>
-
         </div>
         <div class="tab-pane" id="tab_1_3">
 

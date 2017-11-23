@@ -12,9 +12,10 @@ class MatchingController extends Controller
 
     //so khop sinh vien voi cong ty
     public function getStudentCv()
-    {
+    {   
+        $assignedStd = DB::table('assignment')->pluck('student_id');
         $period_id = DB::table('periods')->orderBy('id','desc')->first();
-        $student_id = DB::table('periods_students')->where('period_id',$period_id->id)->pluck('student_id');
+        $student_id = DB::table('periods_students')->where('period_id',$period_id->id)->whereNotIn('student_id',$assignedStd)->pluck('student_id');
         return DB::table('student_cv')->whereIn('student_cv.student_id',$student_id)->get();
     }
 
