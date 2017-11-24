@@ -25,9 +25,8 @@
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN PAGE LEVEL PLUGINS -->
-@yield('page-level-css-plugins')
-
-<!-- END PAGE LEVEL PLUGINS -->
+    @yield('page-level-css-plugins')
+    <!-- END PAGE LEVEL PLUGINS -->
 
     <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="/assets/global/css/components-md.min.css" rel="stylesheet" id="style_components" type="text/css"/>
@@ -41,8 +40,8 @@
     <!-- END THEME LAYOUT STYLES -->
 
     <!-- BEGIN PAGE LEVEL STYLES -->
-@yield('page-level-css')
-<!-- END PAGE LEVEL STYLES -->
+    @yield('page-level-css')
+    <!-- END PAGE LEVEL STYLES -->
 
     <link rel="shortcut icon" href="favicon.ico"/>
 </head>

@@ -132,7 +132,7 @@
                                                                     <span class="required"> * </span>
                                                                 </label>
                                                                 <div class="col-md-6">
-                                                                    <select class="form-control" name="role">
+                                                                    <select class="form-control" name="select">
                                                                         <option value="">Lựa chọn</option>
                                                                         <option value="student">Sinh viên</option>
                                                                         <option value="manager">Giảng viên phụ trách</option>

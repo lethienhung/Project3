@@ -218,7 +218,9 @@ Route::group(['middleware' => ['auth', 'manager']], function () {
     Route::post('period/add', 'PeriodController@addStudentToPeriod');
 
     //Profile
-    Route::get('/manager/profile', 'InternManagementTeacherController@index');
+    Route::get('/manager/profile/{manager_id}', 'InternManagementTeacherController@index');
+    Route::post('/manager/profile/{manager_id}', 'InternManagementTeacherController@store');
+    Route::post('/manager/profile/{manager_id}/changepassword', 'InternManagementTeacherController@changepassword');
 
     //topic approved/decline - Done
     Route::get('manager/topics', 'TopicCensorController@create');
